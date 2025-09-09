@@ -4,12 +4,7 @@ class GameService {
         this.useLocalData = false;
         this.localSpinData = null;
         this.currency = null;
-
-        const currentHost = window.location.hostname;
-        
-        this.baseURL = ENVIRONMENT === 'production' 
-            ? RAILWAY_BACKEND_URL || 'https://crown-quest-production.up.railway.app'
-            : `http://${currentHost}:3000`;
+        this.baseURL = null;
     }
 
     setLocalSpinData(data) {
@@ -36,7 +31,15 @@ class GameService {
         }
     }
 
-    async initialize() {
+    async initialize(config) {
+        if (!config || !config.production_url || !config.development_url) {
+            throw new Error('GameService: config with production_url and development_url required');
+        }
+        
+        this.baseURL = config.environment === 'production' 
+            ? config.production_url 
+            : config.development_url;
+
         try {
             const response = await fetch(`${this.baseURL}/api/connect`, {
                 method: 'POST',
