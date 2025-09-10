@@ -8,7 +8,7 @@ export class Loader {
         this.config = assetsConfig;
         this.uiAssetsConfig = uiAssetsConfig;
         this.resources = {};
-        this.fonts = config?.fonts || ['Roboto'];
+        this.fonts = this.config?.fonts || ['Roboto'];
     }
 
     async loadFonts() {

@@ -15,19 +15,20 @@ import { inject } from '@vercel/analytics';
 
 export class BaseApplication {
     constructor(config = {}) {
-        super();
 
         this.validateConfig(config);
-
         this.config = config;
+
         this.loader = new Loader(this.config.assets, this.config.ui.spritesheets);
         this.gameVersionManager = new GameVersionManager(this.config.versions);
         this.scenes = new ScenesManager();
         this.uiManager = new UIManager(this.config.ui);
+
+        this.gameStarted = false;
     }
 
     validateConfig(config) {
-        const required = ['ui', 'versions', 'assets', 'scenes'];
+        const required = ['ui', 'versions', 'assets', 'server', 'gameScene'];
         const missing = required.filter(key => !config[key]);
         
         if (missing.length > 0) {
@@ -36,16 +37,16 @@ export class BaseApplication {
     }
 
     async run() {
-        // FilterPatch: permet de résoudre le problème de resolution des filtres sur mobile
-        FilterPatch.apply();
-        gsap.registerPlugin(PixiPlugin);
-        PixiPlugin.registerPIXI(PIXI);
-        // Initialiser Vercel Analytics
-        inject();
-
-        await this.uiManager.initialize();
-
         try {
+            // FilterPatch: permet de résoudre le problème de resolution des filtres sur mobile
+            FilterPatch.apply();
+            gsap.registerPlugin(PixiPlugin);
+            PixiPlugin.registerPIXI(PIXI);
+            // Initialiser Vercel Analytics
+            inject();
+
+            await this.uiManager.initialize();
+
             this.app = new PIXI.Application();
             await this.app.init({
                 resolution: window.devicePixelRatio || 1,
@@ -119,7 +120,6 @@ export class BaseApplication {
         
         if (isMobile && FullscreenHelper.isFullscreenSupported()) {
             // on veut toujours être en fullscreen sur mobile après le premier démarrage
-            this.gameStarted = false;
             
             // Event listener pour maintenir le fullscreen sur mobile
             const maintainFullscreen = async (event) => {
@@ -203,7 +203,7 @@ export class BaseApplication {
     }
 
     start() {
-        this.scenes.start(GameScene);
+        this.scenes.start(this.config.gameScene);
         //this.scenes.start("FlameRecorder");
         this.resize();
         
@@ -289,5 +289,3 @@ export class BaseApplication {
         }
     }
 }
-
-export const App = new Application();

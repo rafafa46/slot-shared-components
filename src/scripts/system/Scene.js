@@ -1,14 +1,14 @@
 import * as PIXI from "pixi.js";
-import { App } from "./App.js";
 
 export class Scene {
-    constructor() {
+    constructor(app) {
+        this.app = app;
         this.container = new PIXI.Container();
         this.container.interactive = true;
-        this.container.pivot.set(App.maxGameWidth / 2, App.maxGameHeight / 2);
+        this.container.pivot.set(this.app.maxGameWidth / 2, this.app.maxGameHeight / 2);
 
         this.create();
-        App.app.ticker.add(this.update, this);
+        this.app.app.ticker.add(this.update, this);
     }
 
     create() {}
@@ -16,7 +16,7 @@ export class Scene {
     destroy() {}
 
     remove() {
-        App.app.ticker.remove(this.update, this);
+        this.app.app.ticker.remove(this.update, this);
         this.destroy();
     }
 }
