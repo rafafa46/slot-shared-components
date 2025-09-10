@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useScrollReset } from '../OverlayComponents/useScrollReset.js';
 import styled, { keyframes } from 'styled-components';
 import { useGameState } from '../../GameState/GameStateContext.js';
-import { UI_CONFIG } from '../../../../../config/ui.js'
 import BaseOverlay from '../BaseOverlay.js';
 import BetControl from '../OverlayComponents/BetControl.js';
 import { formatCurrency } from '../../currencyFormatter.js';
@@ -284,7 +283,8 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
         title: 'QUINTUPLE CHANCE',
         description: 'Each spin is 5 times more likely to trigger a Bonus Game!',
         image: UIAssetsManager.getImageSrc('symbols-Scatter'),
-        cost: currentBet * UI_CONFIG.featureCost.quintupleChance,
+        //cost: currentBet * UI_CONFIG.featureCost.quintupleChance,
+        cost: 1,
         volatility: 4
       }
     ],
@@ -294,7 +294,8 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
         title: 'SUPER SPIN',
         description: 'Each spin guarantees that at least 1 special symbol land, 3 times in a row!',
         image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        cost: currentBet * UI_CONFIG.featureCost.superSpin,
+        //cost: currentBet * UI_CONFIG.featureCost.superSpin,
+        cost: 1,
         volatility: 4
       }
     ],
@@ -304,7 +305,8 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
         title: 'BONUS GAME',
         description: '8 free Spins with permanent wilds and upgrades in symbol panel!',
         image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        cost: currentBet * UI_CONFIG.featureCost.bonus,
+        //cost: currentBet * UI_CONFIG.featureCost.bonus,
+        cost: 1,
         volatility: 4
       },
       {
@@ -312,7 +314,8 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
         title: 'SUPER BONUS GAME',
         description: '8 free Spins with permanent upgrades, the chances of getting crowns are increased !',
         image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        cost: currentBet * UI_CONFIG.featureCost.superBonus,
+        //cost: currentBet * UI_CONFIG.featureCost.superBonus,
+        cost: 1,
         volatility: 4.5
       }
     ]

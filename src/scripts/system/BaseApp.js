@@ -8,7 +8,7 @@ import { soundManager } from "../utils/SoundManager.js"; // ok
 import { gameService } from "../../services/GameService.js"; // ok
 import { UIManager } from "../components/UIManagement/UIManager.js";
 import { FilterPatch } from "../utils/FilterPatch.js"; // ok
-import { FullscreenHelper } from "../components/UIManagement/FullscreenHelper.js";
+import { FullscreenHelper } from "../utils/FullscreenHelper.js";
 import { inject } from '@vercel/analytics';
 
 // import localSpinData from '../../../bigWin.json';
@@ -22,7 +22,7 @@ export class BaseApplication {
         this.loader = new Loader(this.config.assets, this.config.ui.spritesheets);
         this.gameVersionManager = new GameVersionManager(this.config.versions);
         this.scenes = new ScenesManager();
-        this.uiManager = new UIManager(this.config.ui);
+        this.uiManager = new UIManager(this);
 
         this.gameStarted = false;
     }

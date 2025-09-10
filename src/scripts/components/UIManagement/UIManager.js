@@ -8,7 +8,6 @@ import { GameStateProvider } from './GameState/GameStateContext.js';
 import { OverlayProvider, useOverlay } from './Overlay/OverlayContext.js';
 import OverlayManager from './Overlay/OverlayManager.js';
 import MenuContainer from './Menu/MenuContainer.js';
-import { App } from "../../system/App.js";
 
 const GlobalDragDisableStyles = createGlobalStyle`
   img {
@@ -18,8 +17,9 @@ const GlobalDragDisableStyles = createGlobalStyle`
 `;
 
 export class UIManager {
-    constructor(uiConfig) {
-        this.stateManager = new GameStateManager(uiConfig);
+    constructor(app) {
+        this.app = app;
+        this.stateManager = new GameStateManager(this.app.config.ui);
         this.version = 'desktop';
         this.root = null;
         this.container = null;
@@ -84,8 +84,8 @@ export class UIManager {
             this.container.style.transform = `scale(${scale})`;
             this.container.style.left = `${paddingX}px`;
             this.container.style.top = `${paddingY}px`;
-            this.container.style.width = `${App.maxGameWidth}px`;
-            this.container.style.height = `${App.maxGameHeight}px`;
+            this.container.style.width = `${this.app.maxGameWidth}px`;
+            this.container.style.height = `${this.app.maxGameHeight}px`;
         }
     }
 
@@ -103,7 +103,7 @@ export class UIManager {
     }
 
     async handleStartGame() {
-        const isMobile = !App.gameVersionManager.isDesktop();
+        const isMobile = !this.app.gameVersionManager.isDesktop();
 
         if (isMobile && FullscreenHelper.isFullscreenSupported()) {
             await FullscreenHelper.requestFullscreen();
@@ -169,8 +169,8 @@ export class UIManager {
 
     handleFullscreenChange() {
         // Forcer un resize pour s'assurer que tout s'affiche correctement: à supprimer?
-        if (App && App.resize) {
-            App.resize();
+        if (this.app && this.app.resize) {
+            this.app.resize();
         }
     }
 
