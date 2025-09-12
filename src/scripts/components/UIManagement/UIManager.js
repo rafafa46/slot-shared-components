@@ -52,10 +52,12 @@ export class UIManager {
             
                 return (
                     <>
-                        {/* AJOUTER ICI : Styles globaux */}
                         <GlobalDragDisableStyles />
                         
-                        <GameStateProvider stateManager={this.stateManager}>
+                        <GameStateProvider 
+                          stateManager={this.stateManager} 
+                          uiConfig={this.app.config.ui}
+                        >
                             <OverlayManager />
                             {isGameStarted && (
                                 <MenuContainer 

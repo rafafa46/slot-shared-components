@@ -87,7 +87,8 @@ export class GameStateManager {
         if (!this.activeFeature) {
             this.displayedBet = this.currentBet;
         } else {
-            const multiplier = this.config.featureCost[this.activeFeature];
+            // à corriger !!!!!
+            const multiplier = this.config.features.id[this.activeFeature];
             // dans le cas des bigwins
             if (!multiplier) {
                 this.displayedBet = 1;

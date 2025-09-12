@@ -19,7 +19,7 @@ export class BaseApplication {
         this.validateConfig(config);
         this.config = config;
 
-        this.loader = new Loader(this.config.assets, this.config.ui.spritesheets);
+        this.loader = new Loader(this.config.assets, this.config.ui.assets.spritesheets);
         this.gameVersionManager = new GameVersionManager(this.config.versions);
         this.scenes = new ScenesManager();
         this.uiManager = new UIManager(this);
