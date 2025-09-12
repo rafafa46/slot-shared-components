@@ -26,10 +26,11 @@ const PaylineGridWrapper = styled.div`
   margin: 8px;
 `;
 
-const PaylineGrid = ({ payline, index }) => {
+const PaylineGrid = ({ payline, index, gridConfig }) => {
   
-  const rows = 4;
-  const cols = 5;
+  // Utiliser la configuration pour les dimensions de la grille
+  const rows = gridConfig.rows;
+  const cols = gridConfig.cols;
   
   // Créer une matrice pour représenter la grille
   const grid = Array(rows).fill().map(() => Array(cols).fill(false));

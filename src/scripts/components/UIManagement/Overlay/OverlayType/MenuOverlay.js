@@ -44,37 +44,49 @@ const SettingsContent = () => {
   );
 };
 
+// Factory pour les composants
+const MENU_COMPONENTS = {
+  PayTableContent: PayTableContent,
+  PayLinesContent: PayLinesContent,
+  RulesContent: RulesContent,
+  SettingsContent: SettingsContent
+};
+
 // Composant principal MenuOverlay
 const MenuOverlay = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState('paytable');
+  const { uiConfig } = useGameState();
+  
+  const tabs = uiConfig?.overlay?.GAME_MENU?.config?.tabs || [];
+  const [activeTab, setActiveTab] = useState(tabs[0]?.id || 'paytable');
 
   useScrollReset(activeTab);
 
-  const tabs = [
-    { id: 'paytable', label: 'Paytable' },
-    { id: 'paylines', label: 'Paylines' },
-    { id: 'rules', label: 'Rules' },
-    { id: 'settings', label: 'Settings' }
-  ];
-
   const renderContent = () => {
-    switch (activeTab) {
-      case 'paytable':
-        return (
-          <>
-            <BetControl customLabel="ACTUAL BET" />
-            <PayTableContent />
-          </>
-        );
-      case 'paylines':
-        return <PayLinesContent />;
-      case 'rules':
-        return <RulesContent />;
-      case 'settings':
-        return <SettingsContent />;
-      default:
-        return null;
+    const currentTab = tabs.find(tab => tab.id === activeTab);
+    if (!currentTab) return null;
+
+    const Component = MENU_COMPONENTS[currentTab.component];
+    if (!Component) {
+      console.warn(`Component ${currentTab.component} not found`);
+      return <div>Component not found: {currentTab.component}</div>;
     }
+
+    const content = [];
+
+    // Ajouter BetControl si configuré
+    if (currentTab.showBetControl) {
+      content.push(
+        <BetControl 
+          key="bet-control"
+          customLabel="ACTUAL BET" 
+        />
+      );
+    }
+
+    // Ajouter le composant principal
+    content.push(<Component key={currentTab.id} />);
+
+    return content;
   };
 
   return (
@@ -96,6 +108,5 @@ const MenuOverlay = ({ onClose }) => {
     </BaseOverlay>
   );
 };
-
 
 export default MenuOverlay;

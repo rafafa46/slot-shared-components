@@ -12,10 +12,9 @@ import {
   SymbolInfo
 } from '../OverlayStyles.js';
 
-// à faire: remettre 100px au lieu de 10
 const SymbolImage = styled.img`
-  width: ${props => props.$size || '10px'};
-  height: ${props => props.$size || '10px'};
+  width: ${props => props.$size || '100px'};
+  height: ${props => props.$size || '100px'};
   object-fit: contain;
   margin-bottom: 12px;
 `;
