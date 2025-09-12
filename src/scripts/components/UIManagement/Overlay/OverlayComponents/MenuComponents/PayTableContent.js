@@ -1,5 +1,3 @@
-// PayTableContent.js
-
 import React from 'react';
 import styled from 'styled-components';
 import { UIAssetsManager } from '../../../UIAssetsManager.js';
@@ -14,9 +12,10 @@ import {
   SymbolInfo
 } from '../OverlayStyles.js';
 
+// à faire: remettre 100px au lieu de 10
 const SymbolImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: ${props => props.$size || '10px'};
+  height: ${props => props.$size || '10px'};
   object-fit: contain;
   margin-bottom: 12px;
 `;
@@ -37,7 +36,7 @@ const PayTableContent = () => {
 
   const renderPayouts = (payouts) => {
     return payouts.map((payout, index) => (
-      <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0' }}>
+      <div key={index} style={{ margin: '5px 0' }}>
         <span style={{ color: '#FFC107', fontWeight: 'bold' }}>{payout[0]}</span>
         <span style={{ marginLeft: '10px', color: 'white' }}>
           {calculatePayout(payout[1])}
@@ -50,7 +49,11 @@ const PayTableContent = () => {
     return symbols.map((symbol, index) => (
       <SymbolCard key={index}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-          <SymbolImage src={UIAssetsManager.getImageSrc(symbol.img)} alt={symbol.name} />
+          <SymbolImage 
+            src={UIAssetsManager.getImageSrc(symbol.image)}
+            alt={symbol.name}
+            $size={symbol.imageSize}
+          />
           <SymbolInfo>
             {symbol.payouts ? (
               <div style={{ textAlign: 'center', marginTop: '10px' }}>
@@ -67,11 +70,6 @@ const PayTableContent = () => {
     ));
   };
 
-  /**
-   * Détermine le nombre de colonnes à afficher pour une section donnée.
-   * @param {string} sectionId - L'ID de la section.
-   * @returns {number} Le nombre de colonnes.
-   */
   const getColumnsForSection = (sectionId) => {
     switch (sectionId) {
       case 'specialSymbols':
@@ -90,7 +88,6 @@ const PayTableContent = () => {
         <PayTableSection key={section.id}>
           {section.title && <SectionTitle>{section.title}</SectionTitle>}
           {section.description && <ItalicText>{section.description}</ItalicText>}
-          {/* On appelle la fonction pour obtenir le nombre de colonnes */}
           <PayTableGrid $columns={getColumnsForSection(section.id)}>
             {renderSymbols(section.items)}
           </PayTableGrid>

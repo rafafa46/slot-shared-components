@@ -3,7 +3,7 @@ import { updateGameStateSnapshot } from '../../../utils/GameStateBridge.js';
 
 const GameStateContext = createContext();
 
-export const GameStateProvider = ({ children, stateManager, uiconfig }) => {
+export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
     const [, forceUpdate] = React.useState({});
 
     useEffect(() => {
@@ -56,7 +56,7 @@ export const GameStateProvider = ({ children, stateManager, uiconfig }) => {
         isAnimating: stateManager.isAnimating,
         musicVolume: stateManager.musicVolume,
         soundVolume: stateManager.soundVolume,
-        uiconfig,
+        uiConfig,
         changeBet,
         toggleAutoplay,
         toggleTurbo,
@@ -77,7 +77,7 @@ export const GameStateProvider = ({ children, stateManager, uiconfig }) => {
         stateManager.isAnimating,
         stateManager.musicVolume,
         stateManager.soundVolume,
-        uiconfig,
+        uiConfig,
         changeBet,
         toggleAutoplay,
         toggleTurbo,

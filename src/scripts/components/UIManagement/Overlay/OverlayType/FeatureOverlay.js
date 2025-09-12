@@ -26,8 +26,8 @@ import {
 } from '../OverlayComponents/OverlayStyles.js';
 
 const SymbolImage = styled.img`
-  width: 120px;
-  height: 120px;
+  width: ${props => props.$size || '120px'};
+  height: ${props => props.$size || '120px'};
   object-fit: contain;
 `;
 
@@ -111,7 +111,7 @@ const VolatilityRating = ({ rating }) => {
   );
 };
 
-const FeatureCardComponent = ({ title, description, image, cost, volatility, onClick, isConfirming, onConfirm, onCancel }) => {
+const FeatureCardComponent = ({ feature, cost, onClick, isConfirming, onConfirm, onCancel }) => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
@@ -127,14 +127,22 @@ const FeatureCardComponent = ({ title, description, image, cost, volatility, onC
   return (
     <FeatureCard>
       <CardContent>
-        <CardTitle style={{ marginTop: 0, marginBottom: 0 }}>{title}</CardTitle>
+        <CardTitle style={{ marginTop: 0, marginBottom: 0 }}>{feature.title}</CardTitle>
         <TitleDivider />
+        
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <CardDescription>{description}</CardDescription>
-          <SymbolImage src={image}/>
+          {/* Afficher la description seulement si elle existe */}
+          {feature.description && <CardDescription>{feature.description}</CardDescription>}
+          
+          <SymbolImage 
+            src={UIAssetsManager.getImageSrc(feature.image)} 
+            alt={feature.title}
+            $size={feature.imageSize} // Support de la taille configurable
+          />
         </div>
+        
         <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-          <VolatilityRating rating={volatility} />
+          <VolatilityRating rating={feature.volatility} />
           <Cost $isAnimating={isAnimating}>
             {formatCurrency(cost)}
           </Cost>
@@ -157,178 +165,30 @@ const FeatureCardComponent = ({ title, description, image, cost, volatility, onC
 
 // Main Component
 const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
-  const { currentBet } = useGameState();
+  const { currentBet, uiConfig } = useGameState();
   const [confirmingFeature, setConfirmingFeature] = useState(null);
-  const [activeTab, setActiveTab] = useState('bigWins');
   
-  // Définition des fonctionnalités par catégorie
-  const featureCategories = {
-    bigWins: [
-      {
-        id: 'bigwin_baseGame_100',
-        title: 'Base Game x100',
-        image: UIAssetsManager.getImageSrc('symbols-special_wild'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_baseGame_200',
-        title: 'Base Game x200',
-        image: UIAssetsManager.getImageSrc('symbols-special_wild'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_baseGame_500',
-        title: 'Base Game x500',
-        image: UIAssetsManager.getImageSrc('symbols-special_wild'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_baseGame_1000',
-        title: 'Base Game x1000',
-        image: UIAssetsManager.getImageSrc('symbols-special_wild'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_bonus_1000',
-        title: 'Bonus x1000',
-        image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_bonus_2000',
-        title: 'Bonus x2000',
-        image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_bonus_3000',
-        title: 'Bonus x3000',
-        image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_bonus_5000',
-        title: 'Bonus x5000',
-        image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_2000',
-        title: 'Super Bonus x2000',
-        image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_5000',
-        title: 'Super Bonus x5000',
-        image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_1',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_2',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_3',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_4',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_5',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        cost: 1,
-        volatility: 0,
-      },
-      {
-        id: 'bigwin_superbonus_10000_6',
-        title: 'Super Bonus x10000',
-        image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        cost: 1,
-        volatility: 0,
-      },
-    ],
-    bonusHunt: [
-      {
-        id: 'quintupleChance',
-        title: 'QUINTUPLE CHANCE',
-        description: 'Each spin is 5 times more likely to trigger a Bonus Game!',
-        image: UIAssetsManager.getImageSrc('symbols-Scatter'),
-        //cost: currentBet * UI_CONFIG.featureCost.quintupleChance,
-        cost: 1,
-        volatility: 4
-      }
-    ],
-    feature: [
-      {
-        id: 'superSpin',
-        title: 'SUPER SPIN',
-        description: 'Each spin guarantees that at least 1 special symbol land, 3 times in a row!',
-        image: UIAssetsManager.getImageSrc('symbols-special_remove'),
-        //cost: currentBet * UI_CONFIG.featureCost.superSpin,
-        cost: 1,
-        volatility: 4
-      }
-    ],
-    bonus: [
-      {
-        id: 'bonus',
-        title: 'BONUS GAME',
-        description: '8 free Spins with permanent wilds and upgrades in symbol panel!',
-        image: UIAssetsManager.getImageSrc('symbols-special_multi'),
-        //cost: currentBet * UI_CONFIG.featureCost.bonus,
-        cost: 1,
-        volatility: 4
-      },
-      {
-        id: 'superBonus',
-        title: 'SUPER BONUS GAME',
-        description: '8 free Spins with permanent upgrades, the chances of getting crowns are increased !',
-        image: UIAssetsManager.getImageSrc('symbols-special_crown'),
-        //cost: currentBet * UI_CONFIG.featureCost.superBonus,
-        cost: 1,
-        volatility: 4.5
-      }
-    ]
-  };
+  // Obtenir la configuration depuis uiConfig
+  const featuresConfig = uiConfig?.features || {};
+  const configuredTabs = featuresConfig.tabs || [];
+  const configuredFeatures = featuresConfig.features || [];
+  
+  const tabs = configuredTabs.length > 0 ? configuredTabs : [];
+  const enabledTabs = tabs.filter(tab => tab.enabled);
+  
+  const [activeTab, setActiveTab] = useState(enabledTabs[0]?.id || 'bigWins');
 
   useScrollReset(activeTab);
 
-  const tabs = [
-    { id: 'bigWins', label: 'BIG WINS' },
-    { id: 'bonusHunt', label: 'BONUS HUNT' },
-    { id: 'feature', label: 'FEATURE' },
-    { id: 'bonus', label: 'BONUS' }
-  ];
+  // Grouper les features par tab
+  const getFeaturesByTab = (tabId) => {
+    return configuredFeatures.filter(feature => feature.tab === tabId);
+  };
+
+  // Calculer le coût d'une feature
+  const calculateCost = (feature) => {
+    return currentBet * feature.costMultiplier;
+  };
 
   const handleFeatureClick = (featureId) => {
     setConfirmingFeature(featureId);
@@ -346,18 +206,23 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
 
   // Fonction pour rendre les cartes de fonctionnalités selon la catégorie active
   const renderFeatureCards = () => {
-    const features = featureCategories[activeTab] || [];
+    const features = getFeaturesByTab(activeTab);
+    
+    if (features.length === 0) {
+      return (
+        <div style={{ textAlign: 'center', color: 'white', marginTop: '2rem' }}>
+          No features configured for this tab.
+        </div>
+      );
+    }
     
     return (
       <CardGrid $cards={features.length}>
         {features.map((feature) => (
           <FeatureCardComponent
             key={feature.id}
-            title={feature.title}
-            description={feature.description}
-            image={feature.image}
-            cost={feature.cost}
-            volatility={feature.volatility}
+            feature={feature}
+            cost={calculateCost(feature)}
             onClick={() => handleFeatureClick(feature.id)}
             isConfirming={confirmingFeature === feature.id}
             onConfirm={() => handleConfirm(feature.id)}
@@ -368,6 +233,9 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
     );
   };
 
+  // Trouver l'onglet actuel pour savoir s'il faut afficher le BetControl
+  const currentTabConfig = enabledTabs.find(tab => tab.id === activeTab);
+
   return (
     <BaseOverlay onClose={onClose} contentType="feature">
       <FlexContainer>
@@ -375,7 +243,7 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
         
         {/* Tab Container */}
         <TabContainer>
-          {tabs.map(tab => (
+          {enabledTabs.map(tab => (
             <TabButton
               key={tab.id}
               $active={activeTab === tab.id}
@@ -386,8 +254,8 @@ const FeatureOverlay = ({ onClose, onFeatureSelect }) => {
           ))}
         </TabContainer>
         
-        {/* BetControl affiché dans chaque onglet sauf bigWins */}
-        {activeTab !== 'bigWins' && <BetControl customLabel="BET" />}
+        {/* BetControl affiché selon la config de l'onglet */}
+        {currentTabConfig?.showBetControl && <BetControl customLabel="BET" />}
         
         {/* Affichage des cartes de fonctionnalités selon l'onglet actif */}
         {renderFeatureCards()}

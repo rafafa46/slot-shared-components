@@ -87,14 +87,15 @@ export class GameStateManager {
         if (!this.activeFeature) {
             this.displayedBet = this.currentBet;
         } else {
-            // à corriger !!!!!
-            const multiplier = this.config.features.id[this.activeFeature];
-            // dans le cas des bigwins
-            if (!multiplier) {
-                this.displayedBet = 1;
-            } else {
-                const cost = this.currentBet * multiplier;
+            const featuresConfig = this.config.features?.features || [];
+            const activeFeatureConfig = featuresConfig.find(feature => feature.id === this.activeFeature);
+            
+            if (activeFeatureConfig) {
+                const cost = this.currentBet * activeFeatureConfig.costMultiplier;
                 this.displayedBet = cost;
+            } else {
+                console.warn(`Feature ${this.activeFeature} not found in config, using cost 1`);
+                this.displayedBet = 1;
             }
         }
         this.notifyStateChange();
