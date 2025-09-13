@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOverlay } from './OverlayContext.js';
+import { useGameState } from '../GameState/GameStateContext.js';
 import StartGameOverlay from './OverlayType/StartGameOverlay.js';
 import BonusWinOverlay from './OverlayType/BonusWinOverlay.js';
 import MessageOverlay from './OverlayType/MessageOverlay.js';
@@ -23,7 +24,7 @@ const OverlayManager = () => {
     if (!isVisible || !type) return null;
 
     // Vérifier si l'overlay est autorisé dans la configuration
-    const overlayConfig = uiConfig.overlays || {};
+    const overlayConfig = uiConfig.overlay || {};
     if (!overlayConfig[type]) {
       console.warn(`Overlay ${type} is not configured and will not be displayed`);
       return null;

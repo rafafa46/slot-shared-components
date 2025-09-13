@@ -10,6 +10,6 @@ export const MENU_ASSETS_CONFIG = {
     ],
     
     audio: [
-        { key: 'spin', url: 'assets/sounds/spin.mp3', volume: 0.5 },
+        { key: 'click', url: 'assets/sounds/click.mp3', volume: 0.15 },
     ]
 };
