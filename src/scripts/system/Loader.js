@@ -2,12 +2,13 @@ import * as PIXI from 'pixi.js';
 import FontFaceObserver from 'fontfaceobserver';
 import { soundManager } from '../utils/SoundManager.js';
 import { UIAssetsManager } from '../components/UIManagement/UIAssetsManager.js';
-import { MENU_ASSETS_CONFIG } from '../../config/menuAssets.js';
+import { ASSETS_CONFIG } from '../../config/assets.js';
+import { UI_ASSETS_CONFIG } from '../../config/uiAssets.js';
 
 export class Loader {
     constructor(assetsConfig, uiAssetsConfig) {
-        this.config = this.mergeConfigs(MENU_ASSETS_CONFIG, assetsConfig);
-        this.uiAssetsConfig = uiAssetsConfig;
+        this.config = this.mergeConfigs(ASSETS_CONFIG, assetsConfig);
+        this.uiAssetsConfig = this.mergeConfigs(UI_ASSETS_CONFIG, uiAssetsConfig);
         this.resources = {};
         this.fonts = this.config?.fonts || ['Roboto'];
     }

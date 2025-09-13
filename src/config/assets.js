@@ -1,4 +1,4 @@
-export const MENU_ASSETS_CONFIG = {
+export const ASSETS_CONFIG = {
     fonts: ['Roboto'],
 
     images: [
