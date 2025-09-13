@@ -2,11 +2,11 @@ export const ASSETS_CONFIG = {
     fonts: ['Roboto'],
 
     images: [
-        { key: 'ui-menu', url: 'assets/images/ui/ui.png' },
+        //{ key: 'ui-menu', url: 'assets/images/ui/ui.png' },
     ],
     
     json: [
-        { key: 'ui-menu-data', url: 'assets/images/ui/ui.json' },
+        //{ key: 'ui-menu-data', url: 'assets/images/ui/ui.json' },
     ],
     
     audio: [

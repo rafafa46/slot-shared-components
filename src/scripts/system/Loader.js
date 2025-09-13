@@ -8,7 +8,11 @@ import { UI_ASSETS_CONFIG } from '../../config/uiAssets.js';
 export class Loader {
     constructor(assetsConfig, uiAssetsConfig) {
         this.config = this.mergeConfigs(ASSETS_CONFIG, assetsConfig);
-        this.uiAssetsConfig = this.mergeConfigs(UI_ASSETS_CONFIG, uiAssetsConfig);
+        this.uiAssetsConfig = 
+            [
+            ...(UI_ASSETS_CONFIG.spritesheets || []),
+            ...(uiAssetsConfig?.spritesheets || [])
+            ];
         this.resources = {};
         this.fonts = this.config?.fonts || ['Roboto'];
     }
