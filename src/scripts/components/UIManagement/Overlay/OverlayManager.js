@@ -18,8 +18,16 @@ const OVERLAY_COMPONENTS = {
 
 const OverlayManager = () => {
     const { isVisible, type, props, hideOverlay } = useOverlay();
+    const { uiConfig } = useGameState();
   
     if (!isVisible || !type) return null;
+
+    // Vérifier si l'overlay est autorisé dans la configuration
+    const overlayConfig = uiConfig.overlays || {};
+    if (!overlayConfig[type]) {
+      console.warn(`Overlay ${type} is not configured and will not be displayed`);
+      return null;
+    }
   
     const OverlayComponent = OVERLAY_COMPONENTS[type];
     if (!OverlayComponent) return null;
@@ -29,7 +37,7 @@ const OverlayManager = () => {
     }
   
     return <OverlayComponent {...props} onClose={hideOverlay} />;
+};
 
-  };
 
 export default OverlayManager;

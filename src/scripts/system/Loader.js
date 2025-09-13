@@ -2,13 +2,26 @@ import * as PIXI from 'pixi.js';
 import FontFaceObserver from 'fontfaceobserver';
 import { soundManager } from '../utils/SoundManager.js';
 import { UIAssetsManager } from '../components/UIManagement/UIAssetsManager.js';
+import { MENU_ASSETS_CONFIG } from '../../config/menuAssets.js';
 
 export class Loader {
     constructor(assetsConfig, uiAssetsConfig) {
-        this.config = assetsConfig;
+        this.config = this.mergeConfigs(MENU_ASSETS_CONFIG, assetsConfig);
         this.uiAssetsConfig = uiAssetsConfig;
         this.resources = {};
         this.fonts = this.config?.fonts || ['Roboto'];
+    }
+
+    mergeConfigs(defaultConfig, gameConfig) {
+        if (!gameConfig) return defaultConfig;
+
+        return {
+            fonts: [...(gameConfig.fonts || []), ...(defaultConfig.fonts || [])],
+            images: [...(gameConfig.images || []), ...(defaultConfig.images || [])],
+            json: [...(gameConfig.json || []), ...(defaultConfig.json || [])],
+            audio: [...(gameConfig.audio || []), ...(defaultConfig.audio || [])],
+            AnimatedSpriteSheets: gameConfig.AnimatedSpriteSheets || { enabled: false, prefixes: [] }
+        };
     }
 
     async loadFonts() {
