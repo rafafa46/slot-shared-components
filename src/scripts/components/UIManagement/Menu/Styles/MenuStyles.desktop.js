@@ -24,7 +24,13 @@ export const TurboButton = styled(BaseStyles.TurboButton)`
   
   &:hover:not(:disabled) {
     &::before {
-      background-color: ${props => props.$active ? '#ff4f2b' : '#404040'};
+      background-color: ${props => {
+        switch(props.$turboMode) {
+          case 'turbo': return '#ff4f2b';
+          case 'superTurbo': return '#197dff';
+          default: return '#404040';
+        }
+      }};
     }
   }
 `;

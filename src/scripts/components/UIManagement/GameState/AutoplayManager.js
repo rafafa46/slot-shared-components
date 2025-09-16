@@ -7,7 +7,7 @@ export class AutoplayManager {
         this.intervals = {
             normal: 200,
             turbo: 50,
-            superTurbo: 30
+            superTurbo: 50
         };
     }
 
