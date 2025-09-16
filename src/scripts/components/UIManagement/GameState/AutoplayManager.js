@@ -1,12 +1,13 @@
 export class AutoplayManager {
-    constructor(stateManager) {
+    constructor(stateManager, turboMode) {
         this.stateManager = stateManager;
         this.isActive = false;
-        this.isTurboActive = false;
+        this.turboMode = turboMode;
 
         this.intervals = {
             normal: 200,
-            turbo: 50
+            turbo: 50,
+            superTurbo: 30
         };
     }
 
@@ -27,8 +28,8 @@ export class AutoplayManager {
         }
     }
 
-    setTurboMode(isEnabled) {
-        this.isTurboActive = isEnabled;
+    setTurboMode(turboMode) {
+        this.turboMode = turboMode;
     }
 
     isRunning() {
@@ -37,7 +38,7 @@ export class AutoplayManager {
 
     scheduleNextSpin() {
         if (this.isActive) {
-            const interval = this.isTurboActive ? this.intervals.turbo : this.intervals.normal;
+            const interval = this.intervals[this.turboMode] || this.intervals.normal;
             this.autoplayTimeout = setTimeout(() => {
                 this.executeSpin();
             }, interval);

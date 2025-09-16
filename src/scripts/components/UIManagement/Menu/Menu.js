@@ -16,12 +16,12 @@ const Menu = ({
     displayedBet,
     balance,
     winAmount,
-    isTurboActive,
+    turboMode,
     isAutoplayActive,
     activeFeature,
     changeBet,
     toggleAutoplay,
-    toggleTurbo,
+    updateTurboMode,
     launchSpin,
     deactivateFeature,
     isButtonDisabled
@@ -204,9 +204,9 @@ const Menu = ({
       </SpinButton>
 
       <TurboButton 
-        onClick={toggleTurbo}
-        {...getTouchProps(toggleTurbo)}
-        $active={isTurboActive}
+        onClick={updateTurboMode}
+        {...getTouchProps(updateTurboMode)}
+        $turboMode={turboMode}
         $bgImage={UIAssetsManager.getImageSrc('ui-circle-small')}
         $iconImage={UIAssetsManager.getImageSrc('ui-turbo-sharp')}
       >

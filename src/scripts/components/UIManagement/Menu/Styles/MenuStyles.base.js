@@ -115,7 +115,13 @@ export const TurboButton = styled(Button)`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: ${props => props.$active ? '#ff2b0f' : '#303030'};
+    background-color: ${props => {
+      switch(props.$turboMode) {
+        case 'turbo': return '#ff2b0f';
+        case 'superTurbo': return '#0066ff';
+        default: return '#303030';
+      }
+    }};
     mask: url(${props => props.$bgImage}) center/contain no-repeat;
     transition: background-color 0.2s ease;
   }

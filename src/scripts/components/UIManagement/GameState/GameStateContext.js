@@ -15,9 +15,9 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
 
     useEffect(() => {
         updateGameStateSnapshot({
-            isTurboActive: stateManager.isTurboActive
+            turboMode: stateManager.turboMode
         });
-    }, [stateManager.isTurboActive]);
+    }, [stateManager.turboMode]);
 
     // Déclarer tous les callbacks avant useMemo
     const changeBet = useCallback((direction) => 
@@ -26,8 +26,8 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
     const toggleAutoplay = useCallback(() => 
         stateManager.toggleAutoplay(), [stateManager]);
     
-    const toggleTurbo = useCallback(() => 
-        stateManager.toggleTurbo(), [stateManager]);
+    const updateTurboMode = useCallback(() => 
+        stateManager.updateTurboMode(), [stateManager]);
     
     const launchSpin = useCallback(() => 
         stateManager.launchSpin(), [stateManager]);
@@ -50,7 +50,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         displayedBet: stateManager.displayedBet,
         balance: stateManager.balance,
         winAmount: stateManager.winAmount,
-        isTurboActive: stateManager.isTurboActive,
+        turboMode: stateManager.turboMode,
         isAutoplayActive: stateManager.isAutoplayActive,
         activeFeature: stateManager.activeFeature,
         isAnimating: stateManager.isAnimating,
@@ -59,7 +59,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         uiConfig,
         changeBet,
         toggleAutoplay,
-        toggleTurbo,
+        updateTurboMode,
         launchSpin,
         deactivateFeature,
         isButtonDisabled,
@@ -71,7 +71,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         stateManager.displayedBet,
         stateManager.balance,
         stateManager.winAmount,
-        stateManager.isTurboActive,
+        stateManager.turboMode,
         stateManager.isAutoplayActive,
         stateManager.activeFeature,
         stateManager.isAnimating,
@@ -80,7 +80,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         uiConfig,
         changeBet,
         toggleAutoplay,
-        toggleTurbo,
+        updateTurboMode,
         launchSpin,
         deactivateFeature,
         isButtonDisabled,

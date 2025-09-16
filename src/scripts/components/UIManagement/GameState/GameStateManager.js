@@ -7,7 +7,7 @@ export class GameStateManager {
         this.onStateChange = null;
         this.isAnimating = false;
         this.isAutoplayActive = false;
-        this.isTurboActive = false;
+        this.turboMode = "normal";
         this.balance = 0;
         this.winAmount = null;
         this.config = uiConfig;
@@ -16,8 +16,8 @@ export class GameStateManager {
         this.activeFeature = null;
         this.musicVolume = 100;
         this.soundVolume = 100;
-        this.autoplayManager =  new AutoplayManager(this);
-        this.autoplayManager.setTurboMode(this.isTurboActive);
+        this.autoplayManager = new AutoplayManager(this, this.turboMode);
+        this.autoplayManager.setTurboMode(this.turboMode);
     }
 
     initialize({ spinManager }) {
@@ -101,10 +101,14 @@ export class GameStateManager {
         this.notifyStateChange();
     }
 
-    toggleTurbo() {
-        this.isTurboActive = !this.isTurboActive;
+    updateTurboMode() {
+        // Cycle à travers les 3 modes : normal → turbo → superTurbo → normal
+        const modes = ['normal', 'turbo', 'superTurbo'];
+        const currentIndex = modes.indexOf(this.turboMode);
+        const nextIndex = (currentIndex + 1) % modes.length;
+        this.turboMode = modes[nextIndex];
         
-        this.autoplayManager.setTurboMode(this.isTurboActive);
+        this.autoplayManager.setTurboMode(this.turboMode);
         
         this.notifyStateChange();
     }

@@ -1,11 +1,11 @@
 let gameStateSnapshot = {
-    isTurboActive: false
+    turboMode: 'normal'
 };
 
 export const updateGameStateSnapshot = (state) => {
     gameStateSnapshot = {
     ...gameStateSnapshot,
-    isTurboActive: state.isTurboActive
+    turboMode: state.turboMode
     };
 };
 
