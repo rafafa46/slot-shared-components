@@ -60,16 +60,21 @@ const Menu = ({
     spin: {
       bigCircle: UIAssetsManager.getImageSrc('ui-spin-circle-big'),
       smallCircle: UIAssetsManager.getImageSrc('ui-spin-circle-small'),
-      spinIcon: UIAssetsManager.getImageSrc('ui-spin'),
+      spinIcon: isButtonDisabled('spin') 
+        ? UIAssetsManager.getImageSrc('ui-spin-skip')
+        : UIAssetsManager.getImageSrc('ui-spin'),
     },
     turbo: {
       background: UIAssetsManager.getImageSrc('ui-circle-small'),
-      icon: UIAssetsManager.getImageSrc('ui-turbo-sharp'),
+      icon: turboMode === 'superTurbo' 
+        ? UIAssetsManager.getImageSrc('ui-turbo-double-sharp')
+        : UIAssetsManager.getImageSrc('ui-turbo-sharp'),
     },
     autoplay: {
       background: UIAssetsManager.getImageSrc('ui-circle-small'),
-      startIcon: UIAssetsManager.getImageSrc('ui-autoplay-start-sharp'),
-      stopIcon: UIAssetsManager.getImageSrc('ui-autoplay-stop-sharp'),
+      icon: isAutoplayActive
+        ? UIAssetsManager.getImageSrc('ui-autoplay-stop-sharp')
+        : UIAssetsManager.getImageSrc('ui-autoplay-start-sharp'),
     },
     betMinus: {
       background: UIAssetsManager.getImageSrc('ui-hoop'),
@@ -207,8 +212,8 @@ const Menu = ({
         onClick={updateTurboMode}
         {...getTouchProps(updateTurboMode)}
         $turboMode={turboMode}
-        $bgImage={UIAssetsManager.getImageSrc('ui-circle-small')}
-        $iconImage={UIAssetsManager.getImageSrc('ui-turbo-sharp')}
+        $bgImage={buttonAssets.turbo.background}
+        $iconImage={buttonAssets.turbo.icon}
       >
       </TurboButton>
 
@@ -218,7 +223,7 @@ const Menu = ({
         $active={isAutoplayActive} 
         disabled={isButtonDisabled('autoplay')}
         $bgImage={buttonAssets.autoplay.background}
-        $iconImage={isAutoplayActive ? buttonAssets.autoplay.stopIcon : buttonAssets.autoplay.startIcon}
+        $iconImage={buttonAssets.autoplay.icon}
       >
       </AutoplayButton>
 
