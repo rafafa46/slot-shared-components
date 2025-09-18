@@ -14,14 +14,16 @@ export class GameStateManager {
         this.currentBet = this.config.bet.defaultBet;
         this.displayedBet = this.currentBet;
         this.activeFeature = null;
+        this.speedUpRequested = false;
         this.musicVolume = 100;
         this.soundVolume = 100;
         this.autoplayManager = new AutoplayManager(this, this.turboMode);
         this.autoplayManager.setTurboMode(this.turboMode);
     }
 
-    initialize({ spinManager }) {
+    initialize({ spinManager, handleSpeedUp }) {
         this.spinManager = spinManager;
+        this.handleSpeedUp = handleSpeedUp;
         this.spinManager.setUpdateUICallback(this.updateAnimationState.bind(this));
     }
 
@@ -44,6 +46,10 @@ export class GameStateManager {
 
     isFeatureActive(featureId) {
         return this.activeFeature === featureId;
+    }
+
+    isSpinIcon() {
+        return !this.isAutoplayActive && !this.isAnimating;
     }
 
     addWin(amount) {
@@ -162,12 +168,28 @@ export class GameStateManager {
             case 'buyFeature':
             case 'betChange':
             case 'spin':
-                return this.isAnimating || this.isAutoplayActive;
+                return this.speedUpRequested;
             case 'autoplay':
                 return !this.isAutoplayActive && this.isAnimating;
             default:
                 return false;
         }
+    }
+
+    enableSpinButton() {
+        this.speedUpRequested = false;
+        this.notifyStateChange();
+    }
+
+    requestSpeedUp() {        
+        this.speedUpRequested = true;
+        this.notifyStateChange();
+        
+        if (this.handleSpeedUp) {
+            this.handleSpeedUp();
+        }
+        
+        return true;
     }
 
     setMusicVolume(volume) {

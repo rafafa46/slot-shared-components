@@ -19,6 +19,7 @@ const Menu = ({
     turboMode,
     isAutoplayActive,
     activeFeature,
+    isSpinIcon,
     changeBet,
     toggleAutoplay,
     updateTurboMode,
@@ -60,7 +61,7 @@ const Menu = ({
     spin: {
       bigCircle: UIAssetsManager.getImageSrc('ui-spin-circle-big'),
       smallCircle: UIAssetsManager.getImageSrc('ui-spin-circle-small'),
-      spinIcon: isButtonDisabled('spin') 
+      spinIcon: isSpinIcon
         ? UIAssetsManager.getImageSrc('ui-spin-skip')
         : UIAssetsManager.getImageSrc('ui-spin'),
     },
@@ -127,23 +128,28 @@ const Menu = ({
   };
 
   const handleSpin = () => {
-    if (!isButtonDisabled('spin')) {
-      soundManager.playSound('click');
-      launchSpin();
-      
-      if (spinIconRef.current) {   
-        gsap.to(spinIconRef.current, {
-          rotation: 360,
-          duration: 0.6,
-          ease: "back.out(1.4)",
-          onComplete: () => {
-            // important: Reset à 0° sans animation pour éviter l'accumulation
-            gsap.set(spinIconRef.current, { rotation: 0 });
-          }
-        });
-      }
+    if (isButtonDisabled('spin')) return;
+        
+    if (isSpinIcon) {
+        soundManager.playSound('click');
+        // Si on affiche skip, faire un speed up
+        requestSpeedUp();
+    } else {
+        // Sinon, lancer un nouveau spin
+        launchSpin();
+        
+        if (spinIconRef.current) {   
+            gsap.to(spinIconRef.current, {
+                rotation: 360,
+                duration: 0.6,
+                ease: "back.out(1.4)",
+                onComplete: () => {
+                    gsap.set(spinIconRef.current, { rotation: 0 });
+                }
+            });
+        }
     }
-  };
+};
 
   // Gestion de la barre d'espace
   const handleKeyDown = useCallback((event) => {

@@ -32,6 +32,9 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
     const launchSpin = useCallback(() => 
         stateManager.launchSpin(), [stateManager]);
 
+    const requestSpeedUp = useCallback(() => 
+        stateManager.requestSpeedUp(), [stateManager]);
+
     const deactivateFeature = useCallback(() => 
         stateManager.deactivateFeature(), [stateManager]);
     
@@ -53,6 +56,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         turboMode: stateManager.turboMode,
         isAutoplayActive: stateManager.isAutoplayActive,
         activeFeature: stateManager.activeFeature,
+        isSpinIcon: stateManager.isSpinIcon,
         isAnimating: stateManager.isAnimating,
         musicVolume: stateManager.musicVolume,
         soundVolume: stateManager.soundVolume,
@@ -61,6 +65,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         toggleAutoplay,
         updateTurboMode,
         launchSpin,
+        requestSpeedUp,
         deactivateFeature,
         isButtonDisabled,
         setMusicVolume,
@@ -74,6 +79,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         stateManager.turboMode,
         stateManager.isAutoplayActive,
         stateManager.activeFeature,
+        stateManager.isSpinIcon,
         stateManager.isAnimating,
         stateManager.musicVolume,
         stateManager.soundVolume,
@@ -82,6 +88,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         toggleAutoplay,
         updateTurboMode,
         launchSpin,
+        requestSpeedUp,
         deactivateFeature,
         isButtonDisabled,
         setMusicVolume,
