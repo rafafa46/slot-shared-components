@@ -121,6 +121,7 @@ export class GameStateManager {
 
     async launchSpin() {
         if (this.isButtonDisabled('spin') && !this.isAutoplayActive) return;
+        this.speedUpRequested = false;
 
         this.resetWin();
 
@@ -181,7 +182,11 @@ export class GameStateManager {
         this.notifyStateChange();
     }
 
-    requestSpeedUp() {        
+    requestSpeedUp() {   
+        if (!this.isAnimating || this.speedUpRequested) {
+            return false;
+        }
+
         this.speedUpRequested = true;
         this.notifyStateChange();
         
