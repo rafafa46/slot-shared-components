@@ -6,6 +6,7 @@ export class GameStateManager {
     constructor(uiConfig) {
         this.onStateChange = null;
         this.isAnimating = false;
+        this.isSpinStarting = false;
         this.isAutoplayActive = false;
         this.turboMode = "normal";
         this.balance = 0;
@@ -48,8 +49,8 @@ export class GameStateManager {
         return this.activeFeature === featureId;
     }
 
-    isSpinIcon() {
-        return !this.isAutoplayActive && !this.isAnimating;
+    get isSpinIcon() {
+        return !this.isAutoplayActive && (!this.isAnimating || this.isSpinStarting);
     }
 
     addWin(amount) {
@@ -120,10 +121,25 @@ export class GameStateManager {
     }
 
     async launchSpin() {
-        if (this.isButtonDisabled('spin') && !this.isAutoplayActive) return;
+        if (this.isAnimating && !this.isAutoplayActive) return;
         this.speedUpRequested = false;
 
         this.resetWin();
+        this.isSpinStarting = true;
+        //this.notifyStateChange();
+
+        const delays = {
+          superTurbo: 360,
+          turbo: 480,
+          normal: 600,
+        };
+
+        const delay = delays[this.turboMode];
+
+        setTimeout(() => {
+            this.isSpinStarting = false;
+            this.notifyStateChange(); 
+        }, delay);
 
         try {
             const spinType = this.activeFeature || 'normal';
@@ -166,10 +182,10 @@ export class GameStateManager {
 
     isButtonDisabled(buttonType) {
         switch (buttonType) {
-            case 'buyFeature':
-            case 'betChange':
+            // case 'buyFeature':
+            // case 'betChange':
             case 'spin':
-                return this.speedUpRequested;
+                return this.speedUpRequested || this.isSpinStarting;
             case 'autoplay':
                 return !this.isAutoplayActive && this.isAnimating;
             default:
@@ -182,13 +198,19 @@ export class GameStateManager {
         this.notifyStateChange();
     }
 
-    requestSpeedUp() {   
+    disableSpinButton() {
+        if (!this.isAnimating || this.speedUpRequested) return
+        
+        this.speedUpRequested = true;
+        this.notifyStateChange();
+    }
+
+    requestSpeedUp() {
         if (!this.isAnimating || this.speedUpRequested) {
             return false;
         }
 
-        this.speedUpRequested = true;
-        this.notifyStateChange();
+        this.disableSpinButton();
         
         if (this.handleSpeedUp) {
             this.handleSpeedUp();

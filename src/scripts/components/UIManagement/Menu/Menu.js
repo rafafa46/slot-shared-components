@@ -138,12 +138,20 @@ const Menu = ({
         soundManager.playSound('click');
         // Sinon, lancer un nouveau spin
         launchSpin();
+
+        const durations = {
+          superTurbo: 0.6,
+          turbo: 0.8,
+          normal: 1,
+        };
+
+        const duration = durations[turboMode];
         
         if (spinIconRef.current) {   
             gsap.to(spinIconRef.current, {
-                rotation: 360,
-                duration: 0.6,
-                ease: "back.out(1.4)",
+                rotation: 720,
+                duration: duration,
+                ease: "power1.out",
                 onComplete: () => {
                     gsap.set(spinIconRef.current, { rotation: 0 });
                 }
