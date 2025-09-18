@@ -20,6 +20,7 @@ const Menu = ({
     isAutoplayActive,
     activeFeature,
     isSpinIcon,
+    requestSpeedUp,
     changeBet,
     toggleAutoplay,
     updateTurboMode,
@@ -62,8 +63,8 @@ const Menu = ({
       bigCircle: UIAssetsManager.getImageSrc('ui-spin-circle-big'),
       smallCircle: UIAssetsManager.getImageSrc('ui-spin-circle-small'),
       spinIcon: isSpinIcon
-        ? UIAssetsManager.getImageSrc('ui-spin-skip')
-        : UIAssetsManager.getImageSrc('ui-spin'),
+        ? UIAssetsManager.getImageSrc('ui-spin')
+        : UIAssetsManager.getImageSrc('ui-spin-skip'),
     },
     turbo: {
       background: UIAssetsManager.getImageSrc('ui-circle-small'),
@@ -130,11 +131,11 @@ const Menu = ({
   const handleSpin = () => {
     if (isButtonDisabled('spin')) return;
         
-    if (isSpinIcon) {
-        soundManager.playSound('click');
+    if (!isSpinIcon) {
         // Si on affiche skip, faire un speed up
         requestSpeedUp();
     } else {
+        soundManager.playSound('click');
         // Sinon, lancer un nouveau spin
         launchSpin();
         
