@@ -126,19 +126,19 @@ export class GameStateManager {
 
         this.resetWin();
         this.isSpinStarting = true;
-        //this.notifyStateChange();
+        this.notifyStateChange();
 
         const delays = {
-          superTurbo: 360,
-          turbo: 480,
-          normal: 600,
+          superTurbo: 110,
+          turbo: 165,
+          normal: 220,
         };
 
-        const delay = delays[this.turboMode];
+        const delay = delays[this.turboMode] || delays.normal;
 
         setTimeout(() => {
             this.isSpinStarting = false;
-            this.notifyStateChange(); 
+            this.notifyStateChange();
         }, delay);
 
         try {
@@ -185,7 +185,7 @@ export class GameStateManager {
             // case 'buyFeature':
             // case 'betChange':
             case 'spin':
-                return this.speedUpRequested || this.isSpinStarting;
+                return this.speedUpRequested || (this.isSpinStarting && !this.isAutoplayActive);
             case 'autoplay':
                 return !this.isAutoplayActive && this.isAnimating;
             default:

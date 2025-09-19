@@ -140,16 +140,16 @@ const Menu = ({
         launchSpin();
 
         const durations = {
-          superTurbo: 0.6,
-          turbo: 0.8,
-          normal: 1,
+          superTurbo: 0.2,
+          turbo: 0.3,
+          normal: 0.4,
         };
 
         const duration = durations[turboMode];
         
         if (spinIconRef.current) {   
             gsap.to(spinIconRef.current, {
-                rotation: 720,
+                rotation: 360,
                 duration: duration,
                 ease: "power1.out",
                 onComplete: () => {
