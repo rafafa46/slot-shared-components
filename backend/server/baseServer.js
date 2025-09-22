@@ -8,7 +8,6 @@ import helmet from 'helmet';
 import jwt from 'jsonwebtoken';
 import Decimal from 'decimal.js';
 import { balanceManager } from './balanceManager.js';
-import { createSimulator } from '../simulators/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -143,12 +142,19 @@ export function createGameServer(SlotBackendClass, gameConfig, options = {}) {
     if (process.env.NODE_ENV !== 'production') {
         app.post('/api/run-simulation', async (req, res) => {
             try {
+                // ✅ Vérifier si un simulateur a été fourni
+                if (!options.SimulatorClass) {
+                    return res.status(400).json({ 
+                        error: 'No simulator available', 
+                        details: 'SimulatorClass must be provided in server options' 
+                    });
+                }
+
                 const numSpins = req.body.numSpins || 1000;
                 const bet = req.body.bet || 1;
-                const simulatorType = req.body.simulatorType || 'bigwin';
                 
-                // ✅ Utiliser la factory de simulateurs
-                const simulator = createSimulator(SlotBackendClass, numSpins, bet, simulatorType);
+                // ✅ Utiliser le simulateur passé en option
+                const simulator = new options.SimulatorClass(SlotBackendClass, numSpins, bet);
                 simulator.runSimulation();
                 res.json(simulator.getSimulationResults());
             } catch (error) {

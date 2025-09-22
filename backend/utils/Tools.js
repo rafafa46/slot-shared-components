@@ -23,6 +23,23 @@ export class Tools {
         return Tools.randomInteger(0, precision - 1) < threshold;
     }
 
+    static getRandomWeightedElement(elements) {
+        
+        const totalWeight = elements.reduce((sum, item) => sum + item.weight, 0);
+        const randomValue = Tools.randomInteger(1, totalWeight);
+
+        let cumulativeWeight = 0;
+        for (const item of elements) {
+            cumulativeWeight+= item.weight;
+            if (randomValue <= cumulativeWeight) {
+                return item;
+            }
+        }
+
+        // Erreur critique : impossible de sélectionner un symbole pondéré
+        throw new Error(`Erreur critique dans getRandomWeightedSymbol: impossible de sélectionner un symbole. TotalWeight: ${totalWeight}, RandomValue: ${randomValue}, PossibleSymbols: ${JSON.stringify(elements)}`);
+    }
+
     static uuidv4() {
         return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
           (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
