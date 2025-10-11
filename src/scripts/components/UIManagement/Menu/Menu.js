@@ -16,6 +16,7 @@ const Menu = ({
     displayedBet,
     balance,
     winAmount,
+    bonusSpinsRemaining,
     turboMode,
     isAutoplayActive,
     activeFeature,
@@ -40,6 +41,9 @@ const Menu = ({
     BalanceAmount,
     WinLabel,
     WinAmount,
+    FreeSpinsContainer,
+    FreeSpinsLabel,
+    FreeSpinsAmount,
     TurboButton,
     SpinButton,
     SpinIconContainer,
@@ -251,6 +255,13 @@ const Menu = ({
         <WinLabel>WIN</WinLabel>
         <WinAmount>{winAmount !== null ? `${formatCurrency(winAmount)}` : ''}</WinAmount>
       </WinContainer>
+
+      {(typeof bonusSpinsRemaining === 'number') && (
+      <FreeSpinsContainer>
+        <FreeSpinsLabel>FREE SPINS</FreeSpinsLabel>
+        <FreeSpinsAmount>{bonusSpinsRemaining}</FreeSpinsAmount>
+      </FreeSpinsContainer>
+    )}
 
       <BetControl>
         <BetButton 

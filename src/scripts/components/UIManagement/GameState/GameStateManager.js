@@ -11,6 +11,7 @@ export class GameStateManager {
         this.turboMode = "normal";
         this.balance = 0;
         this.winAmount = null;
+        this.bonusSpinsRemaining = null;
         this.config = uiConfig;
         this.currentBet = this.config.bet.defaultBet;
         this.displayedBet = this.currentBet;
@@ -26,6 +27,12 @@ export class GameStateManager {
         this.spinManager = spinManager;
         this.handleSpeedUp = handleSpeedUp;
         this.spinManager.setUpdateUICallback(this.updateAnimationState.bind(this));
+    }
+
+    updateAnimationState(isAnimating, newBalance = this.balance) {
+        this.isAnimating = isAnimating;
+        this.balance = newBalance;
+        this.notifyStateChange();
     }
 
     notifyStateChange() {
@@ -73,9 +80,8 @@ export class GameStateManager {
         }, 150);
     }
 
-    updateAnimationState(isAnimating, newBalance = this.balance) {
-        this.isAnimating = isAnimating;
-        this.balance = newBalance;
+    updateBonusSpinsRemaining(value) {
+        this.bonusSpinsRemaining = value;
         this.notifyStateChange();
     }
 
@@ -182,8 +188,9 @@ export class GameStateManager {
 
     isButtonDisabled(buttonType) {
         switch (buttonType) {
-            // case 'buyFeature':
-            // case 'betChange':
+            case 'buyFeature':
+            case 'betChange':
+                return this.isAnimating || this.isAutoplayActive;
             case 'spin':
                 return this.speedUpRequested || (this.isSpinStarting && !this.isAutoplayActive);
             case 'autoplay':

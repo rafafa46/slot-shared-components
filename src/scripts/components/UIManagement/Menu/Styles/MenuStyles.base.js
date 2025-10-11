@@ -300,7 +300,7 @@ export const BetDisplay = styled.span`
   color: ${props => props.$isFeatureActive ? '#33ffeb' : 'white'};
 `;
 
-// ------------------------------------------- Balance and Win -----------------------------------------------
+// ------------------------------------------- Balance, Win, Freespins -----------------------------------------------
 
 export const BalanceContainer = styled.div`
   position: absolute;
@@ -334,4 +334,23 @@ export const WinLabel = styled.div`
 export const WinAmount = styled.div`
   font-size: 22px;
   color: #ffd700;
+`;
+
+export const FreeSpinsContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const FreeSpinsLabel = styled.div`
+  font-size: 18px;
+  color: #47ffec;
+  font-weight: bold;
+`;
+
+export const FreeSpinsAmount = styled.div`
+  font-size: 32px;
+  color: #47ffec;
+  font-weight: bold;
 `;

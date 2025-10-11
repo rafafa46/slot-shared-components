@@ -70,3 +70,8 @@ export const WinContainer = styled(BaseStyles.WinContainer)`
   left: 180px;
   bottom: 15px;
 `;
+
+export const FreeSpinsContainer = styled(BaseStyles.FreeSpinsContainer)`
+  left: 500px;
+  bottom: 15px;
+`;

@@ -66,6 +66,13 @@ class SoundManager {
         sound.play();
     }
 
+    stopSound(key) {
+        if (!this.isInitialized || !this.sounds[key]) return;
+        
+        const sound = this.sounds[key].howl;
+        sound.stop();
+    }
+
     playSoundThrottled(key, volumeMultiplier = 1, pitch = 1.0, throttleMs = 0) {
         if (!this.isInitialized || !this.isSoundEnabled || !this.sounds[key]) return false;
 
