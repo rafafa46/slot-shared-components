@@ -54,7 +54,7 @@ class SoundManager {
         this.ambientSound.loop(true);
     }
 
-    playSound(key, volumeMultiplier = 1, pitch = 1.0) {
+    playSound(key, volumeMultiplier = 1, pitch = 1) {
         if (!this.isInitialized || !this.isSoundEnabled || !this.sounds[key]) return;
 
         const sound = this.sounds[key].howl;
@@ -64,6 +64,8 @@ class SoundManager {
         sound.rate(pitch);
         sound.volume(finalVolume);
         sound.play();
+
+        return sound;
     }
 
     stopSound(key) {
@@ -122,28 +124,22 @@ class SoundManager {
         }
     }
 
-    pauseBackgroundMusic() {
-        if (this.backgroundMusic?.playing()) {
-            this.backgroundMusic.pause();
-        }
+    pauseAllSounds() {
+        Object.values(this.sounds).forEach(sound => {
+            if (sound.howl.playing()) {
+                sound.howl.pause();
+            }
+        });
     }
 
-    pauseAmbientSound() {
-        if (this.ambientSound?.playing()) {
-            this.ambientSound.pause();
-        }
-    }
-
-    resumeBackgroundMusic() {
-        if (this.isSoundEnabled && this.backgroundMusic && !this.backgroundMusic.playing()) {
-            this.backgroundMusic.play();
-        }
-    }
-
-    resumeAmbientSound() {
-        if (this.isSoundEnabled && this.ambientSound && !this.ambientSound.playing()) {
-            this.ambientSound.play();
-        }
+    resumeAllSounds() {
+        if (!this.isSoundEnabled) return;
+        
+        Object.values(this.sounds).forEach(sound => {
+            if (!sound.howl.playing() && sound.howl.seek() > 0) {
+                sound.howl.play();
+            }
+        });
     }
 
     fadeAmbientVolume(targetVolumeMultiplier, duration = 1) {

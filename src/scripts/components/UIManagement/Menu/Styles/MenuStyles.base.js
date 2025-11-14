@@ -16,7 +16,7 @@ export const MenuBar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
 `;
 
 export const Button = styled.button`
@@ -30,7 +30,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 44px;
+  font-size: 60px;
   pointer-events: auto;
   transition: all 0.1s ease;
   transform: var(--button-transform, translateX(-50%)) scale(var(--base-scale, 1));
@@ -44,8 +44,8 @@ export const Button = styled.button`
 // ------------------------------------------- Spin section -----------------------------------------------
 
 export const SpinButton = styled(Button)`
-  width: 120px;
-  height: 120px;
+  width: 162px;
+  height: 162px;
   box-shadow: ${props => props.$isFeatureActive 
     ? '0px 0px 16px 4px rgba(71, 255, 236, 0.5)'
     : '0px 0px 12px 8px rgba(0, 0, 0, 0.3)'};
@@ -106,8 +106,8 @@ export const SpinIcon = styled.div`
 // ------------------------------------------- Turbo Button -----------------------------------------------
 
 export const TurboButton = styled(Button)`
-  width: 66px;
-  height: 66px;
+  width: 89px;
+  height: 89px;
   box-shadow: 0px 0px 8px 6px rgba(0,0,0,0.3);
 
   &::before {
@@ -144,8 +144,8 @@ export const TurboButton = styled(Button)`
 // ------------------------------------------- Autoplay Button -----------------------------------------------
 
 export const AutoplayButton = styled(Button)`
-  width: 66px;
-  height: 66px;
+  width: 89px;
+  height: 89px;
   box-shadow: 0px 0px 8px 6px rgba(0,0,0,0.3);
 
   &::before {
@@ -181,9 +181,9 @@ export const AutoplayButton = styled(Button)`
 // ------------------------------------------- Feature Buy Button -----------------------------------------------
 
 export const BuyFeatureButton = styled(Button)`
-  width: 100px;
-  height: 100px;
-  font-size: 18px;
+  width: 134px;
+  height: 134px;
+  font-size: 24px;
   line-height: 1.2;
   box-shadow: 0px 0px 12px 8px rgba(0,0,0,0.3);
   color: white;
@@ -217,8 +217,8 @@ export const BuyFeatureButton = styled(Button)`
 // ------------------------------------------- Menu Button -----------------------------------------------
 
 export const MenuButton = styled(Button)`
-  width: 34px;
-  height: 26px;
+  width: 46px;
+  height: 35px;
 
   &::before {
     content: '';
@@ -241,8 +241,8 @@ export const BetControl = styled.div`
 `;
 
 export const BetLabel = styled.div`
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 22px;
+  margin-bottom: 7px;
   color: ${props => props.$isFeatureActive ? '#33ffeb' : 'white'};
 `;
 
@@ -259,8 +259,8 @@ export const BetButton = styled(Button)`
   position: relative;
   transform: none;
 
-  width: 39px;
-  height: 39px;
+  width: 53px;
+  height: 53px;
 
   &::before {
     content: '';
@@ -294,8 +294,8 @@ export const BetButton = styled(Button)`
 
 export const BetDisplay = styled.span`
   margin: 0 10px;
-  font-size: 24px;
-  min-width: 110px;
+  font-size: 30px;
+  min-width: 150px;
   text-align: center;
   color: ${props => props.$isFeatureActive ? '#33ffeb' : 'white'};
 `;
@@ -310,12 +310,12 @@ export const BalanceContainer = styled.div`
 `;
 
 export const BalanceLabel = styled.div`
-  font-size: 16px;
+  font-size: 22px;
   color: white;
 `;
 
 export const BalanceAmount = styled.div`
-  font-size: 22px;
+  font-size: 30px;
   color: white;
 `;
 
@@ -327,12 +327,12 @@ export const WinContainer = styled.div`
 `;
 
 export const WinLabel = styled.div`
-  font-size: 16px;
+  font-size: 22px;
   color: white;
 `;
 
 export const WinAmount = styled.div`
-  font-size: 22px;
+  font-size: 30px;
   color: #ffd700;
 `;
 
@@ -344,13 +344,12 @@ export const FreeSpinsContainer = styled.div`
 `;
 
 export const FreeSpinsLabel = styled.div`
-  font-size: 18px;
-  color: #47ffec;
-  font-weight: bold;
+  font-size: 22px;
+  color: white;
 `;
 
 export const FreeSpinsAmount = styled.div`
-  font-size: 32px;
+  font-size: 30px;
   color: #47ffec;
   font-weight: bold;
 `;

@@ -71,14 +71,6 @@ export class ContactBanner {
         this.container.position.set(0, 0);
     }
 
-    updateLayout(layoutConfig) {
-        // Maintenir la bannière en haut à gauche
-        this.container.position.set(0, 0);
-        
-        // La bannière garde une taille fixe de 300px x 80px
-        // Tous les textes restent centrés dans leur zone respective
-    }
-
     destroy() {
         if (this.container && this.container.parent) {
             this.container.parent.removeChild(this.container);

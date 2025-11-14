@@ -213,13 +213,9 @@ export class BaseApplication {
 
     handleVisibilityChange() {
         if (document.hidden) {
-            // L'onglet est caché, mettre en pause la musique
-            soundManager.pauseBackgroundMusic();
-            soundManager.pauseAmbientSound();
+            soundManager.pauseAllSounds();
         } else {
-            // L'onglet est visible à nouveau, reprendre la musique
-            soundManager.resumeBackgroundMusic();
-            soundManager.resumeAmbientSound();
+            soundManager.resumeAllSounds();
             
             //Forcer un refresh du canvas après déverrouillage pour éviter les blocages
             const isMobile = !this.gameVersionManager.isDesktop();

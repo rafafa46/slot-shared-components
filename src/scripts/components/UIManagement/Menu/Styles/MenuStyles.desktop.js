@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import * as BaseStyles from './MenuStyles.base.js';
 
 export const MenuContainer = styled(BaseStyles.MenuContainer)`
-  width: 1400px;
-  height: 900px;
+  width: 1920px;
+  height: 1080px;
 `;
 
 export const MenuBar = styled(BaseStyles.MenuBar)`
-  width: 1400px;
-  height: 90px;
+  width: 1920px;
+  height: 120px;
 `;
 
 // ------------------------------------------- Spin section -----------------------------------------------
@@ -49,8 +49,8 @@ export const AutoplayButton = styled(BaseStyles.AutoplayButton)`
 // ------------------------------------------- FeatureBuy  -----------------------------------------------
 
 export const BuyFeatureButton = styled(BaseStyles.BuyFeatureButton)`
-  right: 30px;
-  bottom: 150px;
+  right: 40px;
+  bottom: 200px;
 
   &:hover:not(:disabled) {
     &::before {
@@ -60,30 +60,30 @@ export const BuyFeatureButton = styled(BaseStyles.BuyFeatureButton)`
 `;
 
 export const MenuButton = styled(BaseStyles.MenuButton)`
-  left: 50px;
-  bottom: 32px;
+  left: 65px;
+  bottom: 42px;
 `;
 
 // ------------------------------------------- Bet Control -----------------------------------------------
 
 export const BetControl = styled(BaseStyles.BetControl)`
-  right: 20px;
-  bottom: 5px;
+  right: 44px;
+  bottom: 12px;
 `;
 
 // ------------------------------------------- Balance and Win -----------------------------------------------
 
 export const BalanceContainer = styled(BaseStyles.BalanceContainer)`
-  left: 150px;
-  bottom: 20px;
+  left: 200px;
+  bottom: 28px;
 `;
 
 export const WinContainer = styled(BaseStyles.WinContainer)`
-  left: 360px;
-  bottom: 20px;
+  left: 480px;
+  bottom: 28px;
 `;
 
 export const FreeSpinsContainer = styled(BaseStyles.FreeSpinsContainer)`
-  left: 800px;
-  bottom: 20px;
+  right: 480px;
+  bottom: 28px;
 `;

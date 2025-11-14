@@ -2,49 +2,49 @@ import styled from 'styled-components';
 import * as BaseStyles from './MenuStyles.base.js';
 
 export const MenuContainer = styled(BaseStyles.MenuContainer)`
-  width: 750px;
-  height: 1334px;
+  width: 820px;
+  height: 1458px;
 `;
 
 export const MenuBar = styled(BaseStyles.MenuBar)`
-  width: 750px;
-  height: 80px;
+  width: 820px;
+  height: 90px;
   background: rgba(0, 0, 0, 0.8);
 `;
 
 // ------------------------------------------- Spin section -----------------------------------------------
 
 export const SpinButton = styled(BaseStyles.SpinButton)`
-  --base-scale: 1.5;
+  --base-scale: 1.3;
   left: 50%;
-  bottom: 80px;
+  bottom: 90px;
   transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const TurboButton = styled(BaseStyles.TurboButton)`
-  --base-scale: 1.5;
+  --base-scale: 1.3;
   left: 28%;
   bottom: 110px;
   transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const AutoplayButton = styled(BaseStyles.AutoplayButton)`
-  --base-scale: 1.5;
+  --base-scale: 1.3;
   left: 72%;
   bottom: 110px;
   transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const BuyFeatureButton = styled(BaseStyles.BuyFeatureButton)`
-  --base-scale: 1.1;
-  right: -25px;
-  bottom: 130px;
+  --base-scale: 1;
+  right: -40px;
+  bottom: 180px;
   transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const MenuButton = styled(BaseStyles.MenuButton)`
-  left: 64px;
-  bottom: 150px;
+  left: 85px;
+  bottom: 130px;
   scale: 1.5;
 `;
 
@@ -56,7 +56,7 @@ export const BetControl = styled(BaseStyles.BetControl)`
 `;
 
 export const BetButton = styled(BaseStyles.BetButton)`
-  scale: 1.4;
+  scale: 1.2;
 `;
 
 // ------------------------------------------- Balance and Win -----------------------------------------------
