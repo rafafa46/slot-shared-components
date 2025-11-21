@@ -29,9 +29,13 @@ export class GameStateManager {
         this.spinManager.setUpdateUICallback(this.updateAnimationState.bind(this));
     }
 
-    updateAnimationState(isAnimating, newBalance = this.balance) {
+    updateAnimationState(isAnimating, newBalance = null) {
         this.isAnimating = isAnimating;
-        this.balance = newBalance;
+        
+        if (newBalance !== null) {
+            this.balance = newBalance;
+        }
+        
         this.notifyStateChange();
     }
 
@@ -128,7 +132,9 @@ export class GameStateManager {
 
     async launchSpin() {
         if (this.isAnimating && !this.isAutoplayActive) return;
+        
         this.speedUpRequested = false;
+        const previousBalance = this.balance;
 
         this.resetWin();
         this.isSpinStarting = true;
@@ -155,7 +161,8 @@ export class GameStateManager {
                 this.notifyStateChange();
             }
             
-            const spinResult = await this.spinManager.executeSpinRequest(spinType, this.currentBet);
+            const spinResult = await this.spinManager.executeSpinRequest(spinType, this.currentBet, previousBalance);
+            
             if (!spinResult) {
                 return null;
             }
