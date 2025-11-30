@@ -21,6 +21,7 @@ export class GameStateManager {
         this.soundVolume = 100;
         this.autoplayManager = new AutoplayManager(this, this.turboMode);
         this.autoplayManager.setTurboMode(this.turboMode);
+        this.showAutoplayPanel = false;
     }
 
     initialize({ spinManager, handleSpeedUp }) {
@@ -119,7 +120,6 @@ export class GameStateManager {
     }
 
     updateTurboMode() {
-        // Cycle à travers les 3 modes : normal → turbo → superTurbo → normal
         const modes = ['normal', 'turbo', 'superTurbo'];
         const currentIndex = modes.indexOf(this.turboMode);
         const nextIndex = (currentIndex + 1) % modes.length;
@@ -131,7 +131,12 @@ export class GameStateManager {
     }
 
     async launchSpin() {
-        if (this.isAnimating && !this.isAutoplayActive) return;
+        if (this.isAnimating) {
+            if (this.isAutoplayActive) {
+                this.toggleAutoplay();
+            }
+            return null;
+        }
         
         this.speedUpRequested = false;
         const previousBalance = this.balance;
@@ -179,19 +184,53 @@ export class GameStateManager {
         }
     }
 
-    toggleAutoplay() {
+    openAutoplayPanel() {
         if (this.isButtonDisabled('autoplay')) return;
-
-        this.isAutoplayActive = !this.isAutoplayActive;
-
-        if (this.isAutoplayActive) {
-            this.autoplayManager.start();
-        } else {
-            this.autoplayManager.stop();
-        }
-
+        this.showAutoplayPanel = true;
         this.notifyStateChange();
     }
+
+    closeAutoplayPanel() {
+        this.showAutoplayPanel = false;
+        this.notifyStateChange();
+    }
+
+    setAutoplaySpinCount(count) {
+        this.autoplayManager.setSpinCount(count);
+        this.notifyStateChange();
+    }
+
+    startAutoplay() {
+        if (this.isAnimating) return;
+
+        this.showAutoplayPanel = false;
+        this.isAutoplayActive = true;
+        this.autoplayManager.start();
+        this.notifyStateChange();
+    }
+
+    get autoplaySpinsRemaining() {
+        return this.autoplayManager.getSpinsRemaining();
+    }
+
+    get selectedAutoplayCount() {
+        return this.autoplayManager.selectedSpinCount;
+    }
+
+    toggleAutoplay() {
+    if (this.isButtonDisabled('autoplay')) return;
+
+    if (this.isAutoplayActive) {
+        this.isAutoplayActive = false;
+        this.autoplayManager.stop();
+    } else if (this.showAutoplayPanel) {
+        this.closeAutoplayPanel();
+    } else {
+        this.openAutoplayPanel();
+    }
+
+    this.notifyStateChange();
+}
 
     isButtonDisabled(buttonType) {
         switch (buttonType) {
@@ -199,7 +238,7 @@ export class GameStateManager {
             case 'betChange':
                 return this.isAnimating || this.isAutoplayActive;
             case 'spin':
-                return this.speedUpRequested || (this.isSpinStarting && !this.isAutoplayActive);
+                return this.speedUpRequested || this.showAutoplayPanel || (this.isSpinStarting && !this.isAutoplayActive);
             case 'autoplay':
                 return !this.isAutoplayActive && this.isAnimating;
             default:

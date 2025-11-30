@@ -47,6 +47,18 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
     const setSoundVolume = useCallback((volume) => 
         stateManager.setSoundVolume(volume), [stateManager]);
 
+    const openAutoplayPanel = useCallback(() => 
+        stateManager.openAutoplayPanel(), [stateManager]);
+
+    const closeAutoplayPanel = useCallback(() => 
+        stateManager.closeAutoplayPanel(), [stateManager]);
+
+    const setAutoplaySpinCount = useCallback((count) => 
+        stateManager.setAutoplaySpinCount(count), [stateManager]);
+
+    const startAutoplay = useCallback(() => 
+        stateManager.startAutoplay(), [stateManager]);
+
     const value = React.useMemo(() => ({
         stateManager,
         currentBet: stateManager.currentBet,
@@ -61,6 +73,9 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         speedUpRequested: stateManager.speedUpRequested,
         isAnimating: stateManager.isAnimating,
         isSpinStarting: stateManager.isSpinStarting,
+        showAutoplayPanel: stateManager.showAutoplayPanel,
+        autoplaySpinsRemaining: stateManager.autoplaySpinsRemaining,
+        selectedAutoplayCount: stateManager.selectedAutoplayCount,
         musicVolume: stateManager.musicVolume,
         soundVolume: stateManager.soundVolume,
         uiConfig,
@@ -71,6 +86,10 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         requestSpeedUp,
         deactivateFeature,
         isButtonDisabled,
+        openAutoplayPanel,
+        closeAutoplayPanel,
+        setAutoplaySpinCount,
+        startAutoplay,
         setMusicVolume,
         setSoundVolume
     }), [
@@ -87,6 +106,9 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         stateManager.speedUpRequested,
         stateManager.isAnimating,
         stateManager.isSpinStarting,
+        stateManager.showAutoplayPanel,
+        stateManager.autoplaySpinsRemaining,
+        stateManager.selectedAutoplayCount,
         stateManager.musicVolume,
         stateManager.soundVolume,
         uiConfig,
@@ -97,6 +119,10 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         requestSpeedUp,
         deactivateFeature,
         isButtonDisabled,
+        openAutoplayPanel,
+        closeAutoplayPanel,
+        setAutoplaySpinCount,
+        startAutoplay,
         setMusicVolume,
         setSoundVolume
     ]);

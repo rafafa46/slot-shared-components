@@ -264,10 +264,34 @@
         "y": 0.5
       }
     },
-    "autoplay-stop-sharp": {
+    "autoplay-close-sharp": {
       "frame": {
         "x": 270,
         "y": 244,
+        "w": 40,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "autoplay-stop-sharp": {
+      "frame": {
+        "x": 270,
+        "y": 286,
         "w": 33,
         "h": 33
       },
@@ -340,7 +364,7 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "ui",
+    "image": "buttons",
     "format": "RGBA8888",
     "size": {
       "w": 316,

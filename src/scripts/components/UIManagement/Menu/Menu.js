@@ -27,7 +27,14 @@ const Menu = ({
     updateTurboMode,
     launchSpin,
     deactivateFeature,
-    isButtonDisabled
+    isButtonDisabled,
+    showAutoplayPanel,
+    autoplaySpinsRemaining,
+    selectedAutoplayCount,
+    openAutoplayPanel,
+    closeAutoplayPanel,
+    setAutoplaySpinCount,
+    startAutoplay
   } = useGameState();
 
   const {
@@ -54,6 +61,11 @@ const Menu = ({
     BetValues,
     BetButton,
     BetDisplay,
+    AutoplayPanelOverlay,
+    AutoplayPanel, 
+    AutoplayOption, 
+    AutoplayStartButton, 
+    AutoplaySpinsRemaining
   } = getMenuStyles(version);
 
   const { getTouchProps, getTouchPropsForRepeating } = useTouchButton();
@@ -61,6 +73,8 @@ const Menu = ({
   const intervalRef = useRef(null);
   const spinIconRef = useRef(null);
   const [isSpacebarPressed, setIsSpacebarPressed] = useState(false);
+
+  const AUTOPLAY_OPTIONS = [10, 25, 50, 100, 500, Infinity];
 
   const buttonAssets = {
     spin: {
@@ -80,7 +94,9 @@ const Menu = ({
       background: UIAssetsManager.getImageSrc('ui-circle-small'),
       icon: isAutoplayActive
         ? UIAssetsManager.getImageSrc('ui-autoplay-stop-sharp')
-        : UIAssetsManager.getImageSrc('ui-autoplay-start-sharp'),
+        : showAutoplayPanel
+          ? UIAssetsManager.getImageSrc('ui-autoplay-close-sharp')
+          : UIAssetsManager.getImageSrc('ui-autoplay-start-sharp'),
     },
     betMinus: {
       background: UIAssetsManager.getImageSrc('ui-hoop'),
@@ -246,6 +262,32 @@ const Menu = ({
       >
       </AutoplayButton>
 
+      {showAutoplayPanel && (
+        <>
+          <AutoplayPanelOverlay onClick={closeAutoplayPanel} />
+          <AutoplayPanel>
+            {AUTOPLAY_OPTIONS.map((count) => (
+              <AutoplayOption
+                key={count}
+                $selected={selectedAutoplayCount === count}
+                onClick={() => setAutoplaySpinCount(count)}
+              >
+                {count === Infinity ? '∞' : count}
+              </AutoplayOption>
+            ))}
+            <AutoplayStartButton onClick={startAutoplay}>
+              START
+            </AutoplayStartButton>
+          </AutoplayPanel>
+        </>
+      )}
+
+      {isAutoplayActive && (
+        <AutoplaySpinsRemaining>
+          {autoplaySpinsRemaining === null ? '∞' : autoplaySpinsRemaining}
+        </AutoplaySpinsRemaining>
+      )}
+
       <BalanceContainer>
         <BalanceLabel>DEMO BALANCE</BalanceLabel>
         <BalanceAmount>{formatCurrency(balance)}</BalanceAmount>
@@ -257,11 +299,11 @@ const Menu = ({
       </WinContainer>
 
       {(typeof bonusSpinsRemaining === 'number') && (
-      <FreeSpinsContainer>
-        <FreeSpinsLabel>FREE SPINS</FreeSpinsLabel>
-        <FreeSpinsAmount>{bonusSpinsRemaining}</FreeSpinsAmount>
-      </FreeSpinsContainer>
-    )}
+        <FreeSpinsContainer>
+          <FreeSpinsLabel>FREE SPINS</FreeSpinsLabel>
+          <FreeSpinsAmount>{bonusSpinsRemaining}</FreeSpinsAmount>
+        </FreeSpinsContainer>
+      )}
 
       <BetControl>
         <BetButton 

@@ -353,3 +353,67 @@ export const FreeSpinsAmount = styled.div`
   color: #47ffec;
   font-weight: bold;
 `;
+
+// ----------------------------------------------- autoplay panel ---------------------------------------------------------
+
+export const AutoplayPanelOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: auto;
+`;
+
+export const AutoplayPanel = styled.div`
+  position: absolute;
+  z-index: 5;
+  transform: var(--panel-transform, translateX(-50%)) scale(var(--base-scale, 1));
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  pointer-events: auto;
+`;
+
+export const AutoplayOption = styled.button`
+  width: 80px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 2px solid ${props => props.$selected ? '#ff2b0f' : 'rgba(255, 255, 255, 0)'};
+  background: ${props => props.$selected ? '#ff2b0f' : '#303030'};
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: ${props => props.$selected ? 'default' : 'pointer'};
+  transition: all 0.15s ease;
+`;
+
+export const AutoplayStartButton = styled.button`
+  grid-column: span 3;
+  height: 44px;
+  border-radius: 9999px;
+  border: none;
+  background: #ff2b0f;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: 4px;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+export const AutoplaySpinsRemaining = styled.div`
+  position: absolute;
+  transform: var(--remaining-transform, translateX(-50%)) scale(var(--base-scale, 1));
+  background: #ff2b0f;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 24px;
+  font-weight: bold;
+`;

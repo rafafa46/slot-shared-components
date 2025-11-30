@@ -87,3 +87,27 @@ export const FreeSpinsContainer = styled(BaseStyles.FreeSpinsContainer)`
   right: 480px;
   bottom: 28px;
 `;
+
+// ------------------------------------------- Autoplay panel -----------------------------------------------
+
+export const AutoplayPanel = styled(BaseStyles.AutoplayPanel)`
+  left: 58%;
+  bottom: 120px;
+`;
+
+export const AutoplayOption = styled(BaseStyles.AutoplayOption)`
+  &:hover {
+    background: ${props => props.$selected ? '#ff2b0f' : '#404040'};
+  }
+`;
+
+export const AutoplayStartButton = styled(BaseStyles.AutoplayStartButton)`
+  &:hover {
+    background: #ff4f2b;
+  }
+`;
+
+export const AutoplaySpinsRemaining = styled(BaseStyles.AutoplaySpinsRemaining)`
+  left: 61%;
+  bottom: 40px;
+`;

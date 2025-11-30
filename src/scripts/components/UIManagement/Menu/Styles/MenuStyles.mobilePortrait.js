@@ -18,28 +18,24 @@ export const SpinButton = styled(BaseStyles.SpinButton)`
   --base-scale: 1.3;
   left: 50%;
   bottom: 90px;
-  transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const TurboButton = styled(BaseStyles.TurboButton)`
   --base-scale: 1.3;
   left: 28%;
   bottom: 110px;
-  transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const AutoplayButton = styled(BaseStyles.AutoplayButton)`
   --base-scale: 1.3;
   left: 72%;
   bottom: 110px;
-  transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const BuyFeatureButton = styled(BaseStyles.BuyFeatureButton)`
   --base-scale: 1;
   right: -40px;
   bottom: 180px;
-  transform: translateX(-50%) scale(var(--base-scale));
 `;
 
 export const MenuButton = styled(BaseStyles.MenuButton)`
@@ -74,4 +70,18 @@ export const WinContainer = styled(BaseStyles.WinContainer)`
 export const FreeSpinsContainer = styled(BaseStyles.FreeSpinsContainer)`
   left: 500px;
   bottom: 15px;
+`;
+
+// ------------------------------------------- Autoplay panel -----------------------------------------------
+
+export const AutoplayPanel = styled(BaseStyles.AutoplayPanel)`
+  --base-scale: 1.7;
+  left: 50%;
+  bottom: 380px;
+`;
+
+export const AutoplaySpinsRemaining = styled(BaseStyles.AutoplaySpinsRemaining)`
+  --base-scale: 1.3;
+  left: 72%;
+  bottom: 225px;
 `;

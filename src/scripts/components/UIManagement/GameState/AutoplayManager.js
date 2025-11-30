@@ -3,6 +3,8 @@ export class AutoplayManager {
         this.stateManager = stateManager;
         this.isActive = false;
         this.turboMode = turboMode;
+        this.spinsRemaining = null;
+        this.selectedSpinCount = 10;
 
         this.intervals = {
             normal: 200,
@@ -11,9 +13,14 @@ export class AutoplayManager {
         };
     }
 
+    setSpinCount(count) {
+        this.selectedSpinCount = count;
+    }
+
     start() {
         if (!this.isActive) {
             this.isActive = true;
+            this.spinsRemaining = this.selectedSpinCount === Infinity ? null : this.selectedSpinCount;
             this.executeSpin();
         }
     }
@@ -21,6 +28,7 @@ export class AutoplayManager {
     stop() {
         if (this.isActive) {
             this.isActive = false;
+            this.spinsRemaining = null;
             if (this.autoplayTimeout) {
                 clearTimeout(this.autoplayTimeout);
                 this.autoplayTimeout = null;
@@ -34,6 +42,10 @@ export class AutoplayManager {
 
     isRunning() {
         return this.isActive;
+    }
+
+    getSpinsRemaining() {
+        return this.spinsRemaining;
     }
 
     scheduleNextSpin() {
@@ -50,10 +62,21 @@ export class AutoplayManager {
 
         try {
             await this.stateManager.launchSpin();
+
+            if (this.spinsRemaining !== null) {
+                this.spinsRemaining--;
+                this.stateManager.notifyStateChange();
+                
+                if (this.spinsRemaining <= 0) {
+                    this.stateManager.toggleAutoplay();
+                    return;
+                }
+            }
             
             if (this.isActive) {
                 this.scheduleNextSpin();
             }
+            
         } catch (error) {
             console.error('Error during autoplay spin:', error);
             this.stop();
