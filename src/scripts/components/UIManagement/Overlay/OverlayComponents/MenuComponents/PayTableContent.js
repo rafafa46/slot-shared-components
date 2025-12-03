@@ -7,10 +7,18 @@ import {
   Text,
   PayTableSection,
   SectionTitle,
-  PayTableGrid,
   SymbolCard,
   SymbolInfo
 } from '../OverlayStyles.js';
+
+export const PayTableGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${props => props.$columns || 5}, max-content);
+  gap: ${props => props.$gap || '20px'};
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 32px;
+`;
 
 const SymbolImage = styled.img`
   width: ${props => props.$size || '100px'};
@@ -35,23 +43,23 @@ const PayTableContent = () => {
 
   const renderPayouts = (payouts) => {
     return payouts.map((payout, index) => (
-      <div key={index} style={{ margin: '5px 0' }}>
-        <span style={{ color: '#FFC107', fontWeight: 'bold' }}>{payout[0]}</span>
-        <span style={{ marginLeft: '10px', color: 'white' }}>
+      <div key={index} style={{ margin: '8px 0' }}>
+        <span style={{ color: '#FFC107', fontWeight: 'bold', fontSize: '1.4rem' }}>{payout[0]}</span>
+        <span style={{ marginLeft: '20px', color: 'white', fontSize: '1.4rem' }}>
           {calculatePayout(payout[1])}
         </span>
       </div>
     ));
   };
 
-  const renderSymbols = (symbols) => {
+  const renderSymbols = (symbols, imageSize) => {
     return symbols.map((symbol, index) => (
       <SymbolCard key={index}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           <SymbolImage 
             src={UIAssetsManager.getImageSrc(symbol.image)}
             alt={symbol.name}
-            $size={symbol.imageSize}
+            $size={imageSize}
           />
           <SymbolInfo>
             {symbol.payouts ? (
@@ -87,8 +95,11 @@ const PayTableContent = () => {
         <PayTableSection key={section.id}>
           {section.title && <SectionTitle>{section.title}</SectionTitle>}
           {section.description && <ItalicText>{section.description}</ItalicText>}
-          <PayTableGrid $columns={getColumnsForSection(section.id)}>
-            {renderSymbols(section.items)}
+          <PayTableGrid 
+            $columns={getColumnsForSection(section.id)}
+            $gap={section.gap}
+          >
+            {renderSymbols(section.items, section.imageSize)}
           </PayTableGrid>
         </PayTableSection>
       ))}

@@ -96,19 +96,19 @@ export const ContentContainer = styled.div`
   align-items: center;
 
   &::-webkit-scrollbar {
-    width: 12px;
+    width: 15px;
   }
   
   &::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 6px;
-    margin-top: 80px;
+    border-radius: 9999px;
+    margin-top: 100px;
     margin-bottom: 20px;
   }
   
   &::-webkit-scrollbar-thumb {
     background: rgb(251, 191, 36);
-    border-radius: 6px;
+    border-radius: 9999px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
@@ -134,10 +134,10 @@ export const ContentContainer = styled.div`
 
 export const CloseButton = styled.button`
   position: fixed;
-  top: 70px;
-  right: 70px;
-  width: 40px;
-  height: 40px;
+  top: 80px;
+  right: 80px;
+  width: 55px;
+  height: 55px;
   ${flexCenter}
   color: rgba(255, 255, 255, 0.6);
   background: rgba(0, 0, 0, 0.2);
@@ -160,38 +160,37 @@ export const CloseButton = styled.button`
 export const FlexContainer = styled.div`
   ${flexColumn}
   align-items: center;
-  gap: ${props => props.$gap || '16px'};
+  gap: ${props => props.$gap || '20px'};
   max-width: ${props => props.$maxWidth || 'none'};
 `;
 
 export const Title = styled.h2`
-  font-size: 1.75rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
   color: white;
-  letter-spacing: 0.05em;
-  margin-bottom: 5 px;
+  margin-bottom: 8px;
 `;
 
 export const SubTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   color: ${props => props.$color || 'rgb(251, 191, 36)'};
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 export const Text = styled.p`
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
   line-height: 1.5;
 `;
 
 export const AnimatedText = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.875rem;
+  font-size: 1.25rem;
   animation: ${bounceAnimation} 1s infinite ease-in-out;
 `;
 
@@ -229,7 +228,7 @@ export const Button = styled.button`
   padding: 5px 10px;
   font-weight: bold;
   border-radius: 2px;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   transition: all 0.2s;
   color: white;
   border: none;
@@ -243,9 +242,9 @@ export const Button = styled.button`
 
 export const ActivateButton = styled(Button)`
   background-color: rgb(249, 115, 22);
-  padding: 8px 20px;
+  padding: 10px 20px;
   width: 100%;
-  max-width: 180px;
+  max-width: 240px;
   
   &:hover:not(:disabled) {
     background-color: rgb(234, 88, 12);
@@ -254,8 +253,8 @@ export const ActivateButton = styled(Button)`
 
 export const SuccessButton = styled(Button)`
   background-color: rgb(22, 163, 74);
-  padding: 8px 16px;
-  min-width: 80px;
+  padding: 10px 20px;
+  min-width: 120px;
   
   &:hover:not(:disabled) {
     background-color: rgb(21, 128, 61);
@@ -264,8 +263,8 @@ export const SuccessButton = styled(Button)`
 
 export const DangerButton = styled(Button)`
   background-color: rgb(220, 38, 38);
-  padding: 8px 16px;
-  min-width: 80px;
+  padding: 10px 20px;
+  min-width: 120px;
   
   &:hover:not(:disabled) {
     background-color: rgb(185, 28, 28);
@@ -294,16 +293,16 @@ export const CardGrid = styled.div`
 
 export const FeatureCard = styled.div`
   background-color: rgba(31, 41, 55, 0.8);
-  border-radius: 6px;
-  width: 290px;
-  height: 360px;
+  border-radius: 10px;
+  width: 380px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0; /* Empêche la carte de rétrécir */
 `;
 
 export const CardContent = styled.div`
-  padding: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -312,7 +311,7 @@ export const CardContent = styled.div`
 `;
 
 export const CardTitle = styled.h2`
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
   text-align: center;
@@ -320,22 +319,23 @@ export const CardTitle = styled.h2`
 
 export const CardDescription = styled.p`
   color: rgb(209, 213, 219);
+  font-size: 1.4rem;
   text-align: left;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 `;
 
 export const Volatility = styled.div`
   color: rgb(156, 163, 175);
   font-style: italic;
-  font-size: 0.875rem;
-  margin-bottom: 8px;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
 `;
 
 export const Cost = styled.div`
   color: rgb(251, 191, 36);
   font-weight: bold;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
+  font-size: 2rem;
+  margin-bottom: 15px;
 `;
 
 // ----------------------------------------
@@ -344,22 +344,23 @@ export const Cost = styled.div`
 export const TabContainer = styled.div`
   display: fixed;
   position: sticky;
-  top: 10px;
-  gap: 1px;
+  top: 14px;
+  gap: 1.25px;
   background-color: rgba(31, 41, 55, 0.8);
-  padding: 4px;
+  padding: 6px;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   z-index: 1;
 `;
 
 export const TabButton = styled.button`
-  padding: 12px 24px;
+  padding: 15px 30px;
   color: ${props => props.$active ? 'white' : 'rgb(156, 163, 175)'};
   background-color: ${props => props.$active ? 'rgb(55, 65, 81)' : 'transparent'};
   border: none;
   border-radius: 2px;
   transition: all 0.2s;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   
@@ -374,28 +375,28 @@ export const TabButton = styled.button`
 export const VolumeControl = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 40px;
+  gap: 20px;
+  margin-bottom: 50px;
 `;
 
 export const VolumeLabel = styled.span`
-  min-width: 140px;
+  min-width: 200px;
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.8rem;
 `;
 
 export const VolumeSlider = styled.input`
   flex: 1;
-  height: 6px;
+  height: 8px;
   appearance: none;
   background-color: rgb(55, 65, 81);
-  border-radius: 3px;
+  border-radius: 4px;
   outline: none;
 
   &::-webkit-slider-thumb {
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     background-color: white;
     border-radius: 50%;
     cursor: pointer;
@@ -406,39 +407,31 @@ export const VolumeSlider = styled.input`
 // PayTable Components
 // ----------------------------------------
 export const PayTableSection = styled.div`
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 `;
 
 export const SectionTitle = styled.h3`
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 16px;
-  margin-top: 16px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   color: rgb(251, 191, 36);
 `;
 
 export const SubSectionTitle = styled.h2`
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: bold;
   //text-align: center;
   margin-bottom: 8px;
-  margin-top: px;
+  margin-top: 8px;
   color: rgb(251, 158, 36);
-`;
-
-export const PayTableGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${props => props.$columns || 5}, 1fr);
-  gap: 16px;
-  width: 100%;
-  margin-bottom: 24px;
 `;
 
 export const SymbolCard = styled.div`
   //background-color: rgba(31, 41, 55, 0.8);
-  //padding: 16px;
-  //border-radius: 8px;
+  //padding: 22px;
+  //border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -463,15 +456,15 @@ export const getTypeColor = (type) => {
 };
 
 export const MessageContainer = styled(FlexContainer)`
-  max-width: 800px;
+  max-width: 1200px;
 `;
 
 export const MessageTitle = styled.h2`
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   color: ${props => getTypeColor(props.$type)};
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 `;
 
 // ----------------------------------------
@@ -481,34 +474,34 @@ export const BetControlContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
-  //padding: 16px;
+  margin-bottom: 14px;
+  //padding: 20px;
   //background-color: rgba(31, 41, 55, 0.2);
-  border-radius: 6px;
+  border-radius: 8px;
   width: 100%;
-  //max-width: 300px;
+  //max-width: 400px;
 `;
 
 export const BetLabel = styled.div`
   color: rgb(251, 191, 36);
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 `;
 
 export const BetControlWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
 `;
 
 export const BetButton = styled.button`
   background: none;
   border: none;
   color: white;
-  font-size: 32px;
+  font-size: 40px;
   cursor: pointer;
-  padding: 4px;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -526,7 +519,7 @@ export const BetButton = styled.button`
 `;
 
 export const BetAmount = styled.span`
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
   color: white;
   min-width: 100px;

@@ -43,7 +43,7 @@ const pulseScaleAnimation = keyframes`
 const Cost = styled.div`
   color: rgb(251, 191, 36);
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 12px;
   animation: ${props => props.$isAnimating ? pulseScaleAnimation : 'none'} 0.4s ease-out;
 `;
@@ -80,7 +80,7 @@ const VolatilityRating = ({ rating }) => {
               key={index} 
               $filled={true} 
               weight="fill" 
-              size={20}
+              size={28}
             />
           );
         }
@@ -91,7 +91,7 @@ const VolatilityRating = ({ rating }) => {
               key={index}
               color="rgb(245, 218, 155)"
               weight="fill"
-              size={20}
+              size={28}
             />
           );
         }
@@ -102,7 +102,7 @@ const VolatilityRating = ({ rating }) => {
               key={index} 
               $filled={false} 
               weight="regular" 
-              size={20}
+              size={28}
             />
           );
         }

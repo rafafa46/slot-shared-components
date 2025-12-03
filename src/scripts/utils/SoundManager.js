@@ -7,9 +7,11 @@ class SoundManager {
         this.backgroundMusic = null;
         this.ambientSound = null;
         this.isSoundEnabled = true;
+        this.backgroundMusicVolume = 1;
         this.soundEffectsVolume = 1;
         this.isInitialized = false;
         this.soundThrottles = new Map();
+        this.pausedSoundIds = [];
 
         this.fadeMultipliers = {
             background: 1,
@@ -100,7 +102,7 @@ class SoundManager {
         const key = Object.keys(this.sounds).find(k => this.sounds[k].howl === this.backgroundMusic);
         if (!key) return;
 
-        const configVolume = this.sounds[key].configVolume;
+        const configVolume = this.backgroundMusicVolume * this.sounds[key].configVolume;
         
         this.backgroundMusic.volume(configVolume);
         this.backgroundMusic.play();
@@ -112,7 +114,7 @@ class SoundManager {
         const key = Object.keys(this.sounds).find(k => this.sounds[k].howl === this.ambientSound);
         if (!key) return;
     
-        const configVolume = this.sounds[key].configVolume;
+        const configVolume = this.soundEffectsVolume * this.sounds[key].configVolume;
         
         this.ambientSound.volume(configVolume);
         this.ambientSound.play();
@@ -125,21 +127,32 @@ class SoundManager {
     }
 
     pauseAllSounds() {
-        Object.values(this.sounds).forEach(sound => {
-            if (sound.howl.playing()) {
-                sound.howl.pause();
-            }
+        if (!this.isSoundEnabled) return;
+        
+        this.pausedSoundIds = [];
+
+        Object.entries(this.sounds).forEach(([key, sound]) => { 
+            sound.howl._sounds.forEach(instance => {
+                if (sound.howl.playing(instance._id)) { 
+                    const id = instance._id;
+                    sound.howl.pause(id); 
+                    this.pausedSoundIds.push({ key: key, id: id }); 
+                }
+            });
         });
     }
 
     resumeAllSounds() {
         if (!this.isSoundEnabled) return;
         
-        Object.values(this.sounds).forEach(sound => {
-            if (!sound.howl.playing() && sound.howl.seek() > 0) {
-                sound.howl.play();
+        this.pausedSoundIds.forEach(paused => {
+            const sound = this.sounds[paused.key]; 
+            if (sound) {
+                sound.howl.play(paused.id); 
             }
         });
+
+        this.pausedSoundIds = [];
     }
 
     fadeAmbientVolume(targetVolumeMultiplier, duration = 1) {
@@ -179,7 +192,7 @@ class SoundManager {
         const configVolume = this.sounds[key].configVolume;
         const currentVolume = this.backgroundMusic.volume();
         this.fadeMultipliers.background = targetVolumeMultiplier;
-        const targetVolume = this.soundEffectsVolume * configVolume * targetVolumeMultiplier;
+        const targetVolume = this.backgroundMusicVolume * configVolume * targetVolumeMultiplier;
         
         this.backgroundMusic.fade(currentVolume, targetVolume, duration * 1000);
     }
@@ -193,7 +206,7 @@ class SoundManager {
         const configVolume = this.sounds[key].configVolume;
         const currentVolume = this.backgroundMusic.volume();
         this.fadeMultipliers.background = 1;
-        const targetVolume = this.soundEffectsVolume * configVolume;
+        const targetVolume = this.backgroundMusicVolume * configVolume;
 
         this.backgroundMusic.fade(currentVolume, targetVolume, duration * 1000);
     }
@@ -214,6 +227,7 @@ class SoundManager {
     setBackgroundMusicVolume(volume) {
         if (!this.isInitialized || !this.backgroundMusic) return;
         
+        this.backgroundMusicVolume = volume;
         const key = Object.keys(this.sounds).find(k => this.sounds[k].howl === this.backgroundMusic);
         if (!key) return;
     

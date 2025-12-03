@@ -43,7 +43,7 @@ const BaseOverlay = ({
           onClick={onClose}
           aria-label="Close"
         >
-          <X size={24} weight="bold" />
+          <X size={34} weight="bold" />
         </CloseButton>
       )}
         {children}

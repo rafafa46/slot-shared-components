@@ -91,7 +91,7 @@ const MenuOverlay = ({ onClose }) => {
 
   return (
     <BaseOverlay onClose={onClose} contentType="menu">
-      <FlexContainer $maxWidth="900px">
+      <FlexContainer $maxWidth="1200px">
         <TabContainer>
           {tabs.map(tab => (
             <TabButton

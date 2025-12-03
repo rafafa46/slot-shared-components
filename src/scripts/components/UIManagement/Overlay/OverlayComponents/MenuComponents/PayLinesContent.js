@@ -14,7 +14,7 @@ const PaylinesContainer = styled.div`
 const PaylinesGridLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 25px;
   justify-content: center;
 `;
 

@@ -63,13 +63,15 @@ export const BalanceContainer = styled(BaseStyles.BalanceContainer)`
 `;
 
 export const WinContainer = styled(BaseStyles.WinContainer)`
-  left: 180px;
+  left: 260px;
   bottom: 15px;
 `;
 
 export const FreeSpinsContainer = styled(BaseStyles.FreeSpinsContainer)`
-  left: 500px;
-  bottom: 15px;
+  left: 670px;
+  bottom: 90px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 10px;
 `;
 
 // ------------------------------------------- Autoplay panel -----------------------------------------------
@@ -82,6 +84,7 @@ export const AutoplayPanel = styled(BaseStyles.AutoplayPanel)`
 
 export const AutoplaySpinsRemaining = styled(BaseStyles.AutoplaySpinsRemaining)`
   --base-scale: 1.3;
+  --remaining-transform: translateX(-50%);
   left: 72%;
   bottom: 225px;
 `;

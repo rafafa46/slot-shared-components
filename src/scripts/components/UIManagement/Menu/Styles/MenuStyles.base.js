@@ -377,6 +377,7 @@ export const AutoplayPanel = styled.div`
 `;
 
 export const AutoplayOption = styled.button`
+  -webkit-tap-highlight-color: transparent;
   width: 80px;
   height: 44px;
   border-radius: 9999px;
@@ -391,6 +392,7 @@ export const AutoplayOption = styled.button`
 
 export const AutoplayStartButton = styled.button`
   grid-column: span 3;
+  -webkit-tap-highlight-color: transparent;
   height: 44px;
   border-radius: 9999px;
   border: none;
@@ -409,7 +411,7 @@ export const AutoplayStartButton = styled.button`
 
 export const AutoplaySpinsRemaining = styled.div`
   position: absolute;
-  transform: var(--remaining-transform, translateX(-50%)) scale(var(--base-scale, 1));
+  transform: var(--remaining-transform) scale(var(--base-scale, 1));
   background: #ff2b0f;
   color: white;
   padding: 4px 12px;

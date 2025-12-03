@@ -21,14 +21,14 @@ const BetControl = ({ customLabel }) => {
           onClick={() => changeBet('down')}
           disabled={isButtonDisabled('betChange')}
         >
-          <MinusCircle size={32} />
+          <MinusCircle size={46} />
         </BetButton>
         <BetAmount>{formatCurrency(currentBet)}</BetAmount>
         <BetButton 
           onClick={() => changeBet('up')}
           disabled={isButtonDisabled('betChange')}
         >
-          <PlusCircle size={32} />
+          <PlusCircle size={46} />
         </BetButton>
       </BetControlWrapper>
     </BetControlContainer>
