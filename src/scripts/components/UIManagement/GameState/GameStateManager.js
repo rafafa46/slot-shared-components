@@ -195,11 +195,6 @@ export class GameStateManager {
         this.notifyStateChange();
     }
 
-    setAutoplaySpinCount(count) {
-        this.autoplayManager.setSpinCount(count);
-        this.notifyStateChange();
-    }
-
     startAutoplay() {
         if (this.isAnimating) return;
 
@@ -217,20 +212,35 @@ export class GameStateManager {
         return this.autoplayManager.selectedSpinCount;
     }
 
-    toggleAutoplay() {
-    if (this.isButtonDisabled('autoplay')) return;
-
-    if (this.isAutoplayActive) {
-        this.isAutoplayActive = false;
-        this.autoplayManager.stop();
-    } else if (this.showAutoplayPanel) {
-        this.closeAutoplayPanel();
-    } else {
-        this.openAutoplayPanel();
+    setAutoplaySpinCount(count) {
+        this.autoplayManager.setSpinCount(count);
+        this.notifyStateChange();
+    }
+    
+    get stopOnBonusWin() {
+        return this.autoplayManager.stopOnBonusWin;
     }
 
-    this.notifyStateChange();
-}
+    toggleStopOnBonusWin() {
+        const newValue = !this.autoplayManager.stopOnBonusWin;
+        this.autoplayManager.setStopOnBonusWin(newValue);
+        this.notifyStateChange();
+    }
+
+    toggleAutoplay() {
+        if (this.isButtonDisabled('autoplay')) return;
+
+        if (this.isAutoplayActive) {
+            this.isAutoplayActive = false;
+            this.autoplayManager.stop();
+        } else if (this.showAutoplayPanel) {
+            this.closeAutoplayPanel();
+        } else {
+            this.openAutoplayPanel();
+        }
+
+        this.notifyStateChange();
+    }
 
     isButtonDisabled(buttonType) {
         switch (buttonType) {

@@ -33,6 +33,8 @@ const Menu = ({
     selectedAutoplayCount,
     openAutoplayPanel,
     closeAutoplayPanel,
+    stopOnBonusWin,
+    toggleStopOnBonusWin,
     setAutoplaySpinCount,
     startAutoplay
   } = useGameState();
@@ -62,7 +64,11 @@ const Menu = ({
     BetButton,
     BetDisplay,
     AutoplayPanelOverlay,
-    AutoplayPanel, 
+    AutoplayPanel,
+    AutoplayPanelTitle,
+    AutoplayPanelHeader,
+    AutoplayOptionLabel,
+    ToggleSwitch,
     AutoplayOption, 
     AutoplayStartButton, 
     AutoplaySpinsRemaining
@@ -266,6 +272,15 @@ const Menu = ({
         <>
           <AutoplayPanelOverlay onClick={closeAutoplayPanel} />
           <AutoplayPanel>
+            <AutoplayPanelTitle>AUTOPLAY</AutoplayPanelTitle>
+            <AutoplayPanelHeader>
+              <ToggleSwitch 
+                    $active={stopOnBonusWin}
+                    onClick={toggleStopOnBonusWin}
+                />
+                <AutoplayOptionLabel>Stop on bonus win</AutoplayOptionLabel>
+            </AutoplayPanelHeader>
+
             {AUTOPLAY_OPTIONS.map((count) => (
               <AutoplayOption
                 key={count}
@@ -275,6 +290,7 @@ const Menu = ({
                 {count === Infinity ? '∞' : count}
               </AutoplayOption>
             ))}
+
             <AutoplayStartButton onClick={startAutoplay}>
               START
             </AutoplayStartButton>

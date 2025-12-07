@@ -376,12 +376,76 @@ export const AutoplayPanel = styled.div`
   pointer-events: auto;
 `;
 
+export const AutoplayPanelTitle = styled.div`
+  grid-column: 1 / -1;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 4px 0 12px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+`;
+
+export const AutoplayPanelHeader = styled.div`
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 0 12px;
+`;
+
+export const AutoplayOptionLabel = styled.span`
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+export const ToggleSwitch = styled.button`
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  
+  width: 52px;
+  height: 28px;
+  
+  border-radius: 9999px;
+  background: ${props => props.$active ? '#ff2b0f' : '#303030'};
+  transition: background-color 0.2s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.2s ease;
+    transform: translateX(${props => props.$active ? '24px' : '0'});
+  }
+`;
+
 export const AutoplayOption = styled.button`
   -webkit-tap-highlight-color: transparent;
   width: 80px;
   height: 44px;
   border-radius: 9999px;
-  border: 2px solid ${props => props.$selected ? '#ff2b0f' : 'rgba(255, 255, 255, 0)'};
+  border: none;
   background: ${props => props.$selected ? '#ff2b0f' : '#303030'};
   color: white;
   font-size: 22px;

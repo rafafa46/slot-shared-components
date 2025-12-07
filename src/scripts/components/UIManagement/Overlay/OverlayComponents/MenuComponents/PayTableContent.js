@@ -13,7 +13,7 @@ import {
 
 export const PayTableGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(${props => props.$columns || 5}, max-content);
+  grid-template-columns: repeat(${props => props.$columns || 5}, minmax(0, 1fr));
   gap: ${props => props.$gap || '20px'};
   justify-content: center;
   width: 100%;

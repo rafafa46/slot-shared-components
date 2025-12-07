@@ -118,7 +118,7 @@ export class UIManager {
 
     showBonusOverlay() {
         return new Promise((resolve) => {
-            if (this.stateManager.isAutoplayActive) {
+            if (this.stateManager.isAutoplayActive && this.stateManager.stopOnBonusWin) {
                 this.stateManager.toggleAutoplay();
             }
 

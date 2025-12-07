@@ -5,6 +5,7 @@ export class AutoplayManager {
         this.turboMode = turboMode;
         this.spinsRemaining = null;
         this.selectedSpinCount = 10;
+        this.stopOnBonusWin = true;
 
         this.intervals = {
             normal: 200,
@@ -15,6 +16,10 @@ export class AutoplayManager {
 
     setSpinCount(count) {
         this.selectedSpinCount = count;
+    }
+
+    setStopOnBonusWin(value) {
+        this.stopOnBonusWin = value;
     }
 
     start() {

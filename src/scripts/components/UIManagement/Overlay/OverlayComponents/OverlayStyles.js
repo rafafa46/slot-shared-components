@@ -90,6 +90,7 @@ export const ContentContainer = styled.div`
   border-radius: 8px;
   padding: 10px;
   overflow: auto;
+  padding: 10px 40px;
 
   display: flex;
   flex-direction: column;
@@ -133,6 +134,7 @@ export const ContentContainer = styled.div`
 `;
 
 export const CloseButton = styled.button`
+  -webkit-tap-highlight-color: transparent;
   position: fixed;
   top: 80px;
   right: 80px;
@@ -225,6 +227,7 @@ export const BlurBackground = styled.div`
 // ----------------------------------------
 export const Button = styled.button`
   ${flexCenter}
+  -webkit-tap-highlight-color: transparent;
   padding: 5px 10px;
   font-weight: bold;
   border-radius: 2px;
@@ -354,6 +357,7 @@ export const TabContainer = styled.div`
 `;
 
 export const TabButton = styled.button`
+  -webkit-tap-highlight-color: transparent;
   padding: 15px 30px;
   color: ${props => props.$active ? 'white' : 'rgb(156, 163, 175)'};
   background-color: ${props => props.$active ? 'rgb(55, 65, 81)' : 'transparent'};
@@ -496,6 +500,7 @@ export const BetControlWrapper = styled.div`
 `;
 
 export const BetButton = styled.button`
+  -webkit-tap-highlight-color: transparent;
   background: none;
   border: none;
   color: white;

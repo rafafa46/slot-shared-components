@@ -53,6 +53,9 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
     const closeAutoplayPanel = useCallback(() => 
         stateManager.closeAutoplayPanel(), [stateManager]);
 
+    const toggleStopOnBonusWin = useCallback(() => 
+        stateManager.toggleStopOnBonusWin(), [stateManager]);
+
     const setAutoplaySpinCount = useCallback((count) => 
         stateManager.setAutoplaySpinCount(count), [stateManager]);
 
@@ -74,6 +77,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         isAnimating: stateManager.isAnimating,
         isSpinStarting: stateManager.isSpinStarting,
         showAutoplayPanel: stateManager.showAutoplayPanel,
+        stopOnBonusWin: stateManager.stopOnBonusWin,
         autoplaySpinsRemaining: stateManager.autoplaySpinsRemaining,
         selectedAutoplayCount: stateManager.selectedAutoplayCount,
         musicVolume: stateManager.musicVolume,
@@ -88,6 +92,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         isButtonDisabled,
         openAutoplayPanel,
         closeAutoplayPanel,
+        toggleStopOnBonusWin,
         setAutoplaySpinCount,
         startAutoplay,
         setMusicVolume,
@@ -107,6 +112,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         stateManager.isAnimating,
         stateManager.isSpinStarting,
         stateManager.showAutoplayPanel,
+        stateManager.stopOnBonusWin,
         stateManager.autoplaySpinsRemaining,
         stateManager.selectedAutoplayCount,
         stateManager.musicVolume,
@@ -121,6 +127,7 @@ export const GameStateProvider = ({ children, stateManager, uiConfig }) => {
         isButtonDisabled,
         openAutoplayPanel,
         closeAutoplayPanel,
+        toggleStopOnBonusWin,
         setAutoplaySpinCount,
         startAutoplay,
         setMusicVolume,
